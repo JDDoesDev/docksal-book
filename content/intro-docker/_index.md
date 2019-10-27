@@ -9,4 +9,4 @@ pre: "<b>2. </b>"
 
 An overview of what Docker is and how to use it.
 
-{{% children depth="999" %}}
+{{% children %}}
