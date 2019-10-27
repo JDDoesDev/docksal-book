@@ -14,3 +14,4 @@ While this training is designed for all skill levels, here are a few things that
 * A Github account
 
 Also, this training is written from the standpoint of a Linux and macOS user. Many commands should be similar on the Windows version of Docker, however, it should be said that I'm not an expert in Windows and won't be able to offer much in the way of debugging in this training.
+
