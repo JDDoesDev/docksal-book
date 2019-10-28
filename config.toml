@@ -4,6 +4,7 @@ theme = "learn"
 pygmentsCodeFences = "true"
 
 [params]
+  showVisitedLinks = true
   description = "Official Docksal documentation website"
   editURL = "https://github.com/docksal/docksal/edit/develop/docs/"
 

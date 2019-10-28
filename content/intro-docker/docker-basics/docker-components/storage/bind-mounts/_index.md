@@ -37,7 +37,7 @@ $ docker run -it \
 root@3ffc3d80141d:/#
 ```
 
-For a breakdown of this command, please revisit the [volumes section](/intro-docker/docker-components/volumes).
+For a breakdown of this command, please revisit the [volumes section](/intro-docker/docker-basics/docker-components/volumes).
 
 Now that we're in our container we can run `ls -al` and see a printout of all of our folders within our `/` or root folder.
 

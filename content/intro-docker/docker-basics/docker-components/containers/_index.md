@@ -34,4 +34,4 @@ $ docker run -it \
 
 This will start the container and allow us to use the command line from within the container. Go ahead and poke around a bit. It's a fully functional Ubuntu install within a container on your host machine that took only a few seconds to setup!
 
-Up next, we're going to explore [storage options](/intro-docker/docker-components/storage) for containers.
+Up next, we're going to explore [storage options](/intro-docker/docker-basics/docker-components/storage) for containers.

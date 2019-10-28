@@ -95,5 +95,5 @@ What this is doing is following the instructions provided by the Dockerfile to b
 
 So now we have an image, but it's not doing us a lot of good. So, what's next?
 
-[Docker Containers](/intro-docker/docker-components/containers/)
+[Docker Containers](/intro-docker/docker-basics/docker-components/containers/)
 
