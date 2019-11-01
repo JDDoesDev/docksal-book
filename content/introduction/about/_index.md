@@ -27,10 +27,14 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
       * We're going to explore some of the tools that are included with Docksal straight out of the box. Many should feel very familiar.
 * GETTING STARTED
   * Installing Docksal
-  * Your First "fin up"
-      * Let's make sure everything is installed correctly and that you're able to get Docksal running and see the default page.
+  * Your First "fin"
+      * Let's make sure everything is installed correctly and that you're able to get Docksal running and see the the system information.
+  * Starting a new project
+      * We're going to use `fin` to spin up a boilerplate project and see what happens.
   * Spinning up a Drupal Site
       * We're going to spin up a basic Drupal 8 site using the Docksal Drupal 8 boilerplate and take a look at some of the things that Docksal needs to run within a Drupal codebase.
+  * Customization
+      * How to alter settings and configuration to make our system work how we want it to work.
   * Keep it Local
       * Not all settings need to make it into your repo.  In fact, it's better if some don't so that you don't accidentally push an API key into a public repo. We're going to find out how to make sure we keep private stuff on our local environment only.
   * Adding Docksal to an Existing Project

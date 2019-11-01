@@ -7,7 +7,7 @@ weight: 2
 
 ### Docker components
 
-Docker is built on multiple components: like
+Docker is built on multiple components:
 
 {{% children %}}
 
