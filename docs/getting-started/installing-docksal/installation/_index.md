@@ -22,7 +22,7 @@ This runs Docker inside a Virtual Machine with VirtualBox.
 
 3. Install Docksal by opening a terminal and running
 
-    ```shell
+    ``` bash
     $ bash <(curl -fsSL https://get.docksal.io)
     ```
 
@@ -32,7 +32,7 @@ This runs Docker inside a Virtual Machine with VirtualBox.
 2. Start Docker for Mac and wait until the animation stops and/or the Docker menu says "Docker is running
 3. Install Docksal by opening a terminal and running
 
-    ```shell
+    ``` bash
     $ DOCKER_NATIVE=1 bash <(curl -fsSL https://get.docksal.io)
     ```
 
@@ -43,6 +43,6 @@ Ubuntu, Mint, Debian, Fedora, CentOS, and derivatives are all supported. Check g
 1. Be sure that your system is prepared for Docksal and that you checked the [prerequisites](/installing-docksal/prereqs) before attempting to install.
 3. Install Docksal by opening a terminal and running
 
-    ```shell
+    ``` bash
     $ DOCKER_NATIVE=1 bash <(curl -fsSL https://get.docksal.io)
     ```

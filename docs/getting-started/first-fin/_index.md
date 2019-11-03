@@ -9,7 +9,7 @@ Now that we've installed Docksal, let's get it running.
 
 Run the following in your terminal:
 
-``` shell
+``` bash
 $ fin system start
 ```
 
@@ -33,7 +33,7 @@ They are responsible for making sure that your application has SSH access, can r
 
 Let's take a look at the output of `fin sysinfo` to see what information we have access to.
 
-```shell
+``` bash
 $ ❯ fin sysinfo
 ███  OS
 Darwin Mac OS X 10.14.6

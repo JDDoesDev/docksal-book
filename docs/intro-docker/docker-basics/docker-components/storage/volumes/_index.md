@@ -19,7 +19,7 @@ Now if we look at what volumes are available, using `docker volume ls` we'll see
 
 To start a container with a volume, we'll use the following command:
 
-```shell
+``` bash
 $ docker run -i -t \
   --name exampleContainer \
   --mount source=exampleVolume,target=/app \
@@ -53,7 +53,7 @@ Finally, we're using the default `ubuntu` image and using the Bash shell for int
 
 If this works, then we should see something that looks like this:
 
-```shell
+``` bash
 root@8bf1f5964b3d:/#
 ```
 
@@ -63,7 +63,7 @@ Now let's try an experiment, shall we? While we're inside this container we just
 
 Run the following commands:
 
-```shell
+``` bash
 $ echo 'Test volume file' >> /app/test
 
 $ echo 'Test container file' >> ~/container-test
@@ -79,7 +79,7 @@ Run `docker container rm exampleContainer` to remove the container.
 
 Finally, recreate the container using the command from above:
 
-```shell
+``` bash
 $ docker run -i -t \
   --name exampleContainer \
   --mount source=exampleVolume,target=/app \
@@ -91,7 +91,7 @@ This will get us back into our `exampleContainer`. Notice that we have a new has
 
 Go to your `/root` folder using `cd /root` or `cd ~` and run `ls -al` to see what files are there. You should see output similar to
 
-```shell
+``` bash
 root@af040d25a903:~# ls -al
 total 16
 drwx------ 2 root root 4096 Oct 10 21:07 .
@@ -104,7 +104,7 @@ Our test container file is gone forever. This happened because we removed the co
 
 Now, go to your `/app` folder using `cd /app` and run `ls -al` to see what files are there. You should see output similar to
 
-```shell
+``` bash
 root@af040d25a903:/app# ls -al
 total 12
 drwxr-xr-x 2 root root 4096 Oct 26 15:32 ./

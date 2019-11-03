@@ -2,6 +2,7 @@ title = "Docksal Documentation"
 languageCode = "en-us"
 theme = "learn"
 pygmentsCodeFences = "true"
+contentDir = "docs"
 
 [params]
   showVisitedLinks = true

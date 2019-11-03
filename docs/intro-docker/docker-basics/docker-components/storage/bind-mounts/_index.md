@@ -15,13 +15,13 @@ A bind mount itself is not a volume, but a volume can use a bind mount. Let's tr
 
 First, from our host machine, let's create a volume:
 
-```shell
+``` bash
 $ docker volume create bindMountTest
 ```
 
 Now let's take a look to see if our volume exists:
 
-```shell
+``` bash
 $ docker volume ls
 DRIVER              VOLUME NAME
 local               bindMountTest
@@ -29,7 +29,7 @@ local               bindMountTest
 
 Perfect! Now, let's spin up a container using that volume:
 
-```shell
+``` bash
 $ docker run -it \
   --name bindtest \
   --mount source=bindMountTest,target=/app \
@@ -41,7 +41,7 @@ For a breakdown of this command, please revisit the [volumes section](/intro-doc
 
 Now that we're in our container we can run `ls -al` and see a printout of all of our folders within our `/` or root folder.
 
-```shell
+``` bash
 root@3ffc3d80141d:/# ls -al
 total 76
 drwxr-xr-x   1 root root 4096 Oct 26 18:13 .
@@ -58,7 +58,7 @@ If we `cd app` we'll see that there's nothing inside this folder, which is fine.
 
 Let's exit our container and remove it.
 
-```shell
+``` bash
 root@3ffc3d80141d:/# exit
 $ docker container stop bindtest
 $ docker container rm bindtest
@@ -69,7 +69,7 @@ Now, let's create some data to test out a bind mount.
 First, we're going to need a folder to use as our host data so let's create a `~/docksal-training/` folder. From your home folder, run `mkdir docksal-training` and `cd docksal-training`.
 
 Now let's create a file.
-```shell
+``` bash
 $ touch bind-mount-test
 $ echo "Testing a bind mount" >> bind-mount-test
 $ cat bind-mount-test
@@ -84,7 +84,7 @@ Since Docker runs system-wide we can run the `docker` command anywhere, so we'll
 
 Okay, let's spin up a container with a bind mount and see what happens.
 
-```shell
+``` bash
 $ docker run -it \
   --name bindtest \
   --mount type=bind,source="$(pwd)",target=/app \
@@ -97,7 +97,7 @@ $ docker run -it \
 
 Now, if we go to the `/app` folder of our container, we should see the file `bind-mount-test`
 
-```shell
+``` bash
 root@04899aa02741:/app# ls -al
 total 8
 drwxr-xr-x 4 root root  128 Oct 26 20:02 ./
@@ -107,7 +107,7 @@ drwxr-xr-x 1 root root 4096 Oct 26 20:00 ../
 
 Let's see what's in the `bind-mount-test` file.
 
-```shell
+``` bash
 root@04899aa02741:/app# cat bind-mount-test
 Testing a bind mount
 ```
@@ -116,14 +116,14 @@ Look at that, we've brought our file from the host into the container! Wonderful
 
 In a new terminal window on your host machine, let's do `echo "And now I'm changed from the host" >> bind-mount-test` within our `docksal-training` folder.
 
-```shell
+``` bash
 $ cat bind-mount-test
 Testing a bind mount
 And now I'm changed from the host
 ```
 
 Let's go back to our container terminal and see what happened.
-```shell
+``` bash
 root@04899aa02741:/app# cat bind-mount-test
 Testing a bind mount
 And now I'm changed from the host

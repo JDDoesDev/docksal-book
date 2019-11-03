@@ -24,7 +24,7 @@ Visit the [theme documentation](https://learn.netlify.com/en/) to see what is go
 
 Navigate to your themes folder in your Hugo site and use the following commands:
 
-```shell
+``` bash
 cd themes/
 git clone https://github.com/matcornic/hugo-theme-learn.git
 ```
@@ -44,7 +44,7 @@ If you need old version for compatibility purpose, either download [theme source
 - Direct download way: https://github.com/matcornic/hugo-theme-learn/archive/1.1.0.zip
 - Git way:
 
-```shell
+``` bash
 cd themes/hugo-theme-learn
 git checkout tags/1.1.0
 ```
@@ -68,21 +68,21 @@ Somewhat work-in-progress steps to release with [gren](https://github.com/github
 - Check merged MRs on the milestone have a tag (Bug, Enhancement, etc.)
 - Tag and push the repo
 
-  ```shell
+  ``` bash
   git tag <tag>
   git push origin <tag>
   ```
 
 - Generate CHANGELOG.md with _gren_
 
-  ```shell
+  ``` bash
   gren changelog  --override --generate --tags=all
   ```
 
 - Fix the date for the current release in CHANGELOG.md
 - Add the changelog to git and update the tag
 
-  ```shell
+  ``` bash
   git add CHANGELOG.md
   git commit -m "Ship tag <tag>"
   git push origin master
@@ -92,6 +92,6 @@ Somewhat work-in-progress steps to release with [gren](https://github.com/github
 
 - Generate release with _gren_
 
-  ```shell
+  ``` bash
   gren release -t <tag>
   ```

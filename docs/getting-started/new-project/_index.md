@@ -12,9 +12,10 @@ The easiest way to start a project with Docksal is to create a new one from a bo
 We're going to begin by entering our terminal and going to a project folder. For demonstration purposes, I'm going to use `~/projects/`, but you're free to use whatever folder works for you. In upcoming lessons we will be pulling projects down from Github, but for this one we're going to use what's already in the system.
 
 1. Open your terminal and go to your project folder.
-``` bash
-$ cd ~/projects
-```
+
+    ``` bash
+    $ cd ~/projects
+    ```
 
 1. Enter the command:
     ``` bash
@@ -22,14 +23,14 @@ $ cd ~/projects
     ```
     This will bring up a series of prompts to build our project.
 
-1. At the first prompt, we'll name our project `my-first-docksal-application`
+2. At the first prompt, we'll name our project `my-first-docksal-application`
     ``` bash
     1. Name your project (lowercase alphanumeric, underscore, and hyphen): my-first-docksal-application
     ```
 
-1. This will bring up a prompt to choose a type of project. We're going to start with a static HTML site.
+3. This will bring up a prompt to choose a type of project. We're going to start with a static HTML site.
     ``` bash
-    2. What would you like to install?
+    1. What would you like to install?
       PHP based
         1.  Drupal 8
         2.  Drupal 8 (Composer Version)
@@ -43,19 +44,19 @@ $ cd ~/projects
         10. Backdrop CMS
 
       Go based
-        11. Hugo
+        11.  Hugo
 
       JS based
-        12. Gatsby JS
-        13. Angular
+        12.  Gatsby JS
+        13.  Angular
 
       HTML
-        14. Static HTML site
+        14.  Static HTML site
 
     Enter your choice (1-14): 14
     ```
 
-1. Next, we'll be able to verify our setup with the following prompt:
+4. Next, we'll be able to verify our setup with the following prompt:
     ``` bash
     Project folder:   /Users/my.username/projects/my-first-docksal-project
     Project software: Plain HTML
@@ -64,7 +65,7 @@ $ cd ~/projects
     Do you wish to proceed? [y/n]: y
     ```
 
-1. After confirming, our services will be created and our application will be running.
+5. After confirming, our services will be created and our application will be running.
 
     **NOTE:** If you haven't run anything in Docksal on your system yet, you will see some images download. This is normal.
 ``` bash

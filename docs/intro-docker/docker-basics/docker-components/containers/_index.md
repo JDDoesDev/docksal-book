@@ -26,7 +26,7 @@ Let's take the image we created in our last step and spin up a container. From w
 
 Enter the following in your terminal:
 
-```shell
+``` bash
 $ docker run -it \
   --name=test_container \
   image-example:1.0.0 /bin/bash
