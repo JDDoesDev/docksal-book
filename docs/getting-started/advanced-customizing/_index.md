@@ -80,6 +80,7 @@ To accomplish this, we're going to do a couple of things in order to lock a vers
           nvm install 8.11.0; \
           nvm alias default 8.11.0; \
           nvm use default; \
+          nvm uninstall 10.16.3; \
           # Install packages
           npm install -g npm@6.1.0; \
           # Cleanup
