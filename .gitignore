@@ -11,3 +11,5 @@ content/versions.md
 content/old-index.md
 public
 resources
+mkdocs.*
+*.pdf

@@ -1,9 +1,31 @@
+# Introduction {: .page-title}
+
+
+## Introduction {: .page-title}
+
+---
+title: "Introduction"
+chapter: true
+weight: 1
+pre: "<b>1. </b>"
+---
+
+## Introduction
+
+Thank you for taking the time to read through this training. This training is designed to make Docksal and container-based development more accessible to more people through examples, real world scenarios, and figuring out answers to the tough questions along the way.
+
+So, what are we waiting for? Let's do this!
+
+{{% children %}}
+
+## About {: .page-title}
+
 ---
 title: "About This Training"
 weight: 1
 ---
 
-## Introduction
+### Introduction
 
 This training is designed based on the [Docksal Docs](https://docs.docksal.io) with examples and scenarios for using Docksal for local development. This is a hands on training workshop broken down into the following schedule.
 
@@ -35,8 +57,6 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
       * We're going to spin up a basic Drupal 8 site using the Docksal Drupal 8 boilerplate and take a look at some of the things that Docksal needs to run within a Drupal codebase.
   * Customization
       * How to alter settings and configuration to make our system work how we want it to work.
-  * Advanced Customization
-      * When a stack only gets you 90% of the way there, you might need just a little more to get you the rest of the way.  We'll explore some options for making customizations and tweaking existing services to do what you need them to do.
   * Keep it Local
       * Not all settings need to make it into your repo.  In fact, it's better if some don't so that you don't accidentally push an API key into a public repo. We're going to find out how to make sure we keep private stuff on our local environment only.
   * Adding Docksal to an Existing Project
@@ -44,7 +64,64 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
   * Addons, Addons, Addons
       * Using addons to make your life easier.  We'll explore some of the available addons, what they do, and how to install them.
 * GOING FURTHER
+  * Customizing Your Environment
+      * When a stack only gets you 90% of the way there, you might need just a little more to get you the rest of the way.  We'll explore some options for making customizations and tweaking existing services to do what you need them to do.
+  * Creating Your Own Services
+      * Customizing just not doing it for you? Let's build a service to help you make sure your environment is exactly what you need it to be.
+  * Adding Docksal to an Existing Project
+      * We'll cover how to take a current Drupal project and wrap it up in a nice, warm Docksal blanket by pulling a codebase, installing a site, and importing a database.
   * Docksal: It's Not Just for Local Anymore
       * Let's explore some other uses for Docksal that aren't your local machine. Docksal can be used for CI builds and sandbox environments.
 * Q & A AND TROUBLESHOOTING
   * Towards the end of the day we'll open up the conversation and see if there are any unanswered questions or issues that are preventing you from using Docksal in your everyday life.
+
+## Prereqs {: .page-title}
+
+---
+title: "Prerequisites"
+weight: 1
+---
+
+### Before we begin...
+
+While this training is designed for all skill levels, here are a few things that will help you have the most success.
+
+* A basic understanding of programming concepts
+* An understanding of using the command line
+* Having VirtualBox, Docker for Mac, or Docker for Windows installed on your machine prior to training (macOS and Windows users)
+* Having Docker installed on your machine prior to training (Linux users)
+* A Github account
+
+Also, this training is written from the standpoint of a Linux and macOS user. Many commands should be similar on the Windows version of Docker, however, it should be said that I'm not an expert in Windows and won't be able to offer much in the way of debugging in this training.
+
+
+# Intro to Docker {: .page-title}
+
+
+## Overview {: .page-title}
+
+---
+title: "What is Docker?"
+weight: 1
+---
+
+### High level overview
+
+![Docker Logo](/images/docker.jpg)
+
+#### Linux containers
+
+aaa
+Docker is an Open Source project based on the concept of Linux containers. What does this mean? At a high-level, this means that Docker runs on top of a host machine's operating system kernel. A Linux container is a packaged application that includes everything it needs to run. Since the application is contained within its own container, the application is extremely portable and easily testable. The portability and testability of Linux containers make them extremely useful and valuable to developers and devops specialists alike.
+
+#### But, what's a Docker?
+
+Docker provides an environment and workflow for Linux containers. Think of it as a container tummler, or a system for containers that makes things happen. It accommodates the containers, creates a welcoming environment for them, keeps them working in sync, and prevents them from running rampant across your system.
+
+Docker is available for multiple systems and architectures, including:
+* macOS
+* Windows
+* Many Linux distributions
+* AWS
+* Google Cloud
+* Others not listed

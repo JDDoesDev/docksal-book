@@ -3,11 +3,12 @@ languageCode = "en-us"
 theme = "learn"
 pygmentsCodeFences = "true"
 contentDir = "docs"
+baseURL = "https://jddoesdev.github.io/docksal-training/"
+canonifyURLs = "true"
 
 [params]
   showVisitedLinks = true
-  description = "Official Docksal documentation website"
-  editURL = "https://github.com/docksal/docksal/edit/develop/docs/"
+  description = "Docksal training guide"
 
   # Custom CSS => statis/css/theme-docksal.css
   themeVariant = "docksal"
@@ -26,12 +27,19 @@ contentDir = "docs"
 
 [menu]
   [[menu.shortcuts]]
-  name = "<i class='fab fa-github'></i> Github repo"
+  name = "<i class='fab fa-github'></i> Guide Github repo"
   identifier = "ds"
-  url = "https://github.com/docksal/docksal"
+  url = "https://github.com/jddoesdev/docksal-training"
   weight = 10
 
   [[menu.shortcuts]]
-  name = "<i class='fas fa-list'></i> Versions"
-  url = "/versions/"
+  name = "Official Docksal documentation"
+  identifier = "of"
+  url = "https://docs.docksal.io"
   weight = 20
+
+  [[menu.shortcuts]]
+  name = "Docksal Project"
+  identifier = "do"
+  url = "https://docksal.io"
+  weight = 0

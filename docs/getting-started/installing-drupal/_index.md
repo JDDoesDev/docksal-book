@@ -9,13 +9,14 @@ Now we're going to take an existing repo, pull it down, and spin up a fully func
 
 ### Setting up for the project
 
-To begin, we need to clone the git repository, or "repo", at https://github.com/JDDoesDev/docksal-training/. We'll do this in the `projects` folder we used in the last section.
+To begin, we need to clone the git repository, or "repo", at https://github.com/JDDoesDev/docksal-training-projects/. We'll do this in the `projects` folder we used in the last section.
+
 
 ``` bash
 $ cd ~/projects
-$ git clone git@github.com:JDDoesDev/docksal-training.git
-$ cd docksal-training
-$ git checkout docksal-training/drupal-site-step-1
+$ git clone git@github.com:JDDoesDev/docksal-training-projects.git
+$ cd docksal-training-projects
+$ git checkout drupal-site-step-1
 ```
 
 Here we're pulling the repo and checking out the Step 1 branch, where we're going to begin working on the project.

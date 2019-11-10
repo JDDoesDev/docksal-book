@@ -66,7 +66,13 @@ $ docker container rm bindtest
 
 Now, let's create some data to test out a bind mount.
 
-First, we're going to need a folder to use as our host data so let's create a `~/docksal-training/` folder. From your home folder, run `mkdir docksal-training` and `cd docksal-training`.
+First, we're going to need a folder to use as our host data so let's use our `~/projects/docksal-training-docker/` folder from the Images section. If this folder doesn't already exist, create it relative to your home folder.
+
+``` bash
+$ cd ~
+$ mkdir projects/docksal-training-docker
+$ cd projects/docksal-training-docker
+```
 
 Now let's create a file.
 ``` bash

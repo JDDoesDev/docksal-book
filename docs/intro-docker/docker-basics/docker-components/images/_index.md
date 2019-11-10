@@ -7,12 +7,12 @@ weight: 3
 
 Images are blueprints for containers. An image itself is often defined by no more than a single file, usually some form of a Dockerfile. This file gives the image instructions on what it needs to be run. Let's put together our own image.
 
-On your host machine create a Dockerfile in `~/docksal-training`
+On your host machine create a Dockerfile in `~/projects/docksal-training-docker`
 
 ``` bash
 $ cd ~
-$ mkdir docksal-training
-$ cd docksal-training
+$ mkdir projects/docksal-training-docker
+$ cd docksal-training-docker
 $ touch Dockerfile
 ```
 

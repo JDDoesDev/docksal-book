@@ -13,7 +13,7 @@ Let's start off by making some adjustments within our `docksal.env` file.
 
 The `docksal.env` file contains environmental variables for Docksal, outside of the project. These are variables that the project looks for when starting up in order to run the correct settings, build the right services, and others. We're going to start by changing our stack to match a production environment.
 
-In your favorite text editor or IDE of choice, open `~/projects/docksal-training/.docksal/docksal.env`
+In your favorite text editor or IDE of choice, open `~/projects/docksal-training-projects/.docksal/docksal.env`
 
 The default settings here are:
 
@@ -131,5 +131,5 @@ Now we're ready to run `fin init`. After everything has run, visit your site at 
 There are many other customizations that we can do with our `docksal.env` and `docksal.yml` files. We can add labels to services which are used to define functionality, we can change domain names, and we can even define our own services and variables to be used for our projects. In the next section we're going to explore some more advanced customizations using the `docksal.env` and `docksal.yml` files.
 
 {{% notice info %}}
-**NOTE:** The code for this section can be found in the `docksal-training/drupal-site-step-2` branch of [github.com/JDDoesDev/docksal-training].
+**NOTE:** The code for this section can be found in the `drupal-site-step-2` branch of [github.com/JDDoesDev/docksal-training-projects].
 {{% /notice %}}

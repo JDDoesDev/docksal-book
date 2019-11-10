@@ -16,18 +16,6 @@ i.icon.docksal {
   background-size: 15px 15px;
 }
 
-/* Theme fixes for Algolia Search */
-.searchboxed {
-  margin-top: 1rem;
-  position: relative;
-  border: 1px solid #915eae;
-  background: #764890;
-  border-radius: 4px;}
-
-.searchboxed span {
-  right: 0px;
-  top:0px;}
-
 body {
   position: relative;
   min-height: 100vh;
