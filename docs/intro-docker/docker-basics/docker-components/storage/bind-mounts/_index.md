@@ -30,8 +30,8 @@ local               bindMountTest
 Perfect! Now, let's spin up a container using that volume:
 
 ``` bash
-$ docker run -it \
-  --name bindtest \
+$ docker run -i -t \
+  --name bindTest \
   --mount source=bindMountTest,target=/app \
   ubuntu /bin/bash
 root@3ffc3d80141d:/#
@@ -60,8 +60,8 @@ Let's exit our container and remove it.
 
 ``` bash
 root@3ffc3d80141d:/# exit
-$ docker container stop bindtest
-$ docker container rm bindtest
+$ docker container stop bindTest
+$ docker container rm bindTest
 ```
 
 Now, let's create some data to test out a bind mount.
@@ -74,8 +74,11 @@ $ mkdir projects/docksal-training-docker
 $ cd projects/docksal-training-docker
 ```
 
-Now let's create a file.
+Now let's create a file in a new `app` folder.
 ``` bash
+$ mkdir app && cd app
+$ pwd
+/Users/username/projects/docksal-training-docker/app
 $ touch bind-mount-test
 $ echo "Testing a bind mount" >> bind-mount-test
 $ cat bind-mount-test
@@ -83,7 +86,7 @@ $ cat bind-mount-test
 
 You should see the output `Testing a bind mount`.
 
-Since Docker runs system-wide we can run the `docker` command anywhere, so we'll stay in our `docksal-training` folder for now. Next, we're going to spin up a container using a bind mount. It is much the same as using a volume with two differences:
+Since Docker runs system-wide we can run the `docker` command anywhere, so we'll stay in our `docksal-training-docker/app` folder for now. Next, we're going to spin up a container using a bind mount. It is much the same as using a volume with two differences:
 
 1. You'll notice that we're using a `type=bind` argument for the command.
 2. When spinning up a container, Docker will automatically create a volume if it does not exist. This is not the case if we use a folder for `source` and the `source` folder does not exist. We will see an error and the build will fail.
@@ -91,8 +94,8 @@ Since Docker runs system-wide we can run the `docker` command anywhere, so we'll
 Okay, let's spin up a container with a bind mount and see what happens.
 
 ``` bash
-$ docker run -it \
-  --name bindtest \
+$ docker run -i -t \
+  --name bindTest \
   --mount type=bind,source="$(pwd)",target=/app \
   ubuntu /bin/bash
 ```
@@ -120,9 +123,10 @@ Testing a bind mount
 
 Look at that, we've brought our file from the host into the container! Wonderful! Now let's do something with it.
 
-In a new terminal window on your host machine, let's do `echo "And now I'm changed from the host" >> bind-mount-test` within our `docksal-training` folder.
+In a new terminal window on your host machine, let's do `echo "And now I'm changed from the host" >> bind-mount-test` within our `docksal-training-docker/app` folder.
 
 ``` bash
+## In the host machine
 $ cat bind-mount-test
 Testing a bind mount
 And now I'm changed from the host
@@ -130,6 +134,7 @@ And now I'm changed from the host
 
 Let's go back to our container terminal and see what happened.
 ``` bash
+## In the container
 root@04899aa02741:/app# cat bind-mount-test
 Testing a bind mount
 And now I'm changed from the host
@@ -140,3 +145,7 @@ Outstanding! We now have the ability to change files in the container from our h
 There are a lot more feature of bind mounts and other mounts that are beyond the scope of this training. For further reading please check out the [Docker Docks](https://docs.docker.com/storage/bind-mounts/).
 
 Up next, we're going to take a look at Docker registries.
+
+{{% notice tip %}}
+You can view the completed code for this section at https://github.com/JDDoesDev/docksal-training-docker/tree/volumes
+{{% /notice %}}

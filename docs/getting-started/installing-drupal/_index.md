@@ -122,7 +122,16 @@ The rest of the `init-site` file is comprised of the steps needed to install Dru
 * Fixing permissions
 * Installing Drupal using Drush
 
-At the end of this script, it outputs how long it took to run, the URL of the new project, and the generated username and password combination.
+At the end of this script, it outputs how long it took to run, the URL of the new project, and the generated username and password combination. The username and password will be output during `fin init` a few lines above the end.
+
+It will look something like:
+
+``` bash
+[notice] Starting Drupal installation. This takes a while.
+[success] Installation complete.  User name: admin  User password:
+```
+
+When you're finished exploring your new install, remember to shut it down using `fin project stop`.
 
 ### Summary
 

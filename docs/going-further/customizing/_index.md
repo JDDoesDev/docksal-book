@@ -1,6 +1,6 @@
 ---
 title: "Customizing a Project"
-weight: 6
+weight: 1
 ---
 
 ## Make Our Drupal Project Our Own

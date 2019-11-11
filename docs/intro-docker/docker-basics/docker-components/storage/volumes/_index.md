@@ -71,9 +71,11 @@ $ echo 'Test container file' >> ~/container-test
 
 We can check that these files exist by running `cat /app/test` and `cat ~/container-test` which should display the expected text.
 
-> NOTE: the `~` in bash is a shortcut to the current user's home folder. For root, this is `/root`, but for other users it is usually `/Users/<my user name>`.
+{{% notice info %}}
+NOTE: the `~` in bash is a shortcut to the current user's home folder. For root, this is `/root`, but for other users it is usually `/Users/<my user name>`.
+{{% /notice %}}
 
-Now, let's exit our container by typing `exit`. Since we don't have anything running in the container this will cause it to exit.
+Now, let's exit our container by typing `exit`. Since we don't have anything running in the container this will cause it to stop.
 
 Run `docker container rm exampleContainer` to remove the container.
 
@@ -114,7 +116,7 @@ drwxr-xr-x 1 root root 4096 Oct 26 15:43 ../
 
 Run `cat test` and you'll see our `Test volume file` text from before. Why is this? It's because we mounted a volume to the container in the `/app` folder. The data from the volume is accessible to the container, but it isn't tied to the container. In fact, it lives on our host machine! We could visit it without even spinning up a container if we wanted to.
 
-Let's exit this container and remove it. Run `exit` from the command line of the container and once in your host terminal run `docker container rm exampleContainer`. We'll also remove the example volume by using `docker container rm exampleVolume`.
+Let's exit this container and remove it. Run `exit` from the command line of the container and once in your host terminal run `docker container rm exampleContainer`. We'll also remove the example volume by using `docker volume rm exampleVolume`.
 
 Next, we'll learn about the other primary method of persistent storage in Docker: Bind mounts.
 

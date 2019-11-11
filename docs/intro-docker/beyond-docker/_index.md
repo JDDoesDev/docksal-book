@@ -31,10 +31,14 @@ Let's look back on our [Docker Basics Section](/content/intro-docker/docker-basi
 6. Verify everything works
 7. Ensure everything is setup so that we don't lose data if we stop the container
 
-These steps are not difficult with some practice, but there are many tools that eliminate this setup, allowing you to begin development faster.
+These steps are not difficult with some practice, but there are many tools that eliminate this setup, allowing you to begin development faster and taking a lot of the guesswork out of spinning up your application.
 
 ### Advantages to a tool that uses Docker
 
 With a tool like Docksal, most of the setup is taken out of the equation and you can begin developing faster. Often times, most commands are wrapped up in a handy command so that long commands like `docker container exec my_container bash -lc "/var/www/vendor/bin/drush en stage_file_proxy"` can be handled in a more intuitive and less verbose manner.
 
 In addition, tools like Docksal take all the guesswork out of deciding whether your application should exist in a single container or across multiple services that work together. They handle the orchestration between services out of the box so that you can get straight to developing.
+
+These tools are often developed, maintained, and contributed to by many developers who are passionate about the project and want to build on it to see it grow. This means that if you're running into a problem, there's a good chance that others have already run into the same problem and there will be an answer waiting for you. Unfortunately, rolling a custom solution does not give you the same advantages and you're potentially stuck with a community of one.
+
+To see a partial list of contributors to the Docksal project, visit the [Credits](https://docs.docksal.io/credits/) page of the Docksal docs.

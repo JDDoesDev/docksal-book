@@ -57,6 +57,8 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
       * We're going to spin up a basic Drupal 8 site using the Docksal Drupal 8 boilerplate and take a look at some of the things that Docksal needs to run within a Drupal codebase.
   * Customization
       * How to alter settings and configuration to make our system work how we want it to work.
+  * Advanced Customization
+      * When a stack only gets you 90% of the way there, you might need just a little more to get you the rest of the way.  We'll explore some options for making customizations and tweaking existing services to do what you need them to do.
   * Keep it Local
       * Not all settings need to make it into your repo.  In fact, it's better if some don't so that you don't accidentally push an API key into a public repo. We're going to find out how to make sure we keep private stuff on our local environment only.
   * Adding Docksal to an Existing Project
@@ -64,12 +66,6 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
   * Addons, Addons, Addons
       * Using addons to make your life easier.  We'll explore some of the available addons, what they do, and how to install them.
 * GOING FURTHER
-  * Customizing Your Environment
-      * When a stack only gets you 90% of the way there, you might need just a little more to get you the rest of the way.  We'll explore some options for making customizations and tweaking existing services to do what you need them to do.
-  * Creating Your Own Services
-      * Customizing just not doing it for you? Let's build a service to help you make sure your environment is exactly what you need it to be.
-  * Adding Docksal to an Existing Project
-      * We'll cover how to take a current Drupal project and wrap it up in a nice, warm Docksal blanket by pulling a codebase, installing a site, and importing a database.
   * Docksal: It's Not Just for Local Anymore
       * Let's explore some other uses for Docksal that aren't your local machine. Docksal can be used for CI builds and sandbox environments.
 * Q & A AND TROUBLESHOOTING
@@ -120,6 +116,11 @@ title: "Docker Basics"
 weight: 1
 ---
 
+{{% notice info %}}
+The examples in this section use `docker` commands. It is advised that you have your system's native Docker (Docker for Mac, Docker for Windows) installed and running when completing the exercises in this section.
+{{% /notice %}}
+
+
 {{% children %}}
 
 ## What is Docker? {: .page-title}
@@ -135,7 +136,6 @@ weight: 1
 
 ##### Linux containers
 
-aaa
 Docker is an Open Source project based on the concept of Linux containers. What does this mean? At a high-level, this means that Docker runs on top of a host machine's operating system kernel. A Linux container is a packaged application that includes everything it needs to run. Since the application is contained within its own container, the application is extremely portable and easily testable. The portability and testability of Linux containers make them extremely useful and valuable to developers and devops specialists alike.
 
 ##### But, what's a Docker?
@@ -143,6 +143,7 @@ Docker is an Open Source project based on the concept of Linux containers. What 
 Docker provides an environment and workflow for Linux containers. Think of it as a container tummler, or a system for containers that makes things happen. It accommodates the containers, creates a welcoming environment for them, keeps them working in sync, and prevents them from running rampant across your system.
 
 Docker is available for multiple systems and architectures, including:
+
 * macOS
 * Windows
 * Many Linux distributions
@@ -204,12 +205,12 @@ weight: 3
 
 Images are blueprints for containers. An image itself is often defined by no more than a single file, usually some form of a Dockerfile. This file gives the image instructions on what it needs to be run. Let's put together our own image.
 
-On your host machine create a Dockerfile in `~/docksal-training`
+On your host machine create a Dockerfile in `~/projects/docksal-training-docker`
 
 ``` bash
 $ cd ~
-$ mkdir docksal-training
-$ cd docksal-training
+$ mkdir projects/docksal-training-docker
+$ cd docksal-training-docker
 $ touch Dockerfile
 ```
 
@@ -238,7 +239,7 @@ Successfully tagged image-example:1.0.0
 ```
 
 {{% notice info %}}
-**NOTE:** In the previous command the `"$(pwd)"` refers to the current folder.
+**NOTE:** In the previous command the `"$(pwd)"` is a bash scripting method that takes the output of the `pwd` command and returns it as a string to print. This creates a reference to the current folder.
 {{% /notice %}}
 
 Doesn't seem like a lot, but let's break down the command and output.
@@ -247,7 +248,7 @@ Doesn't seem like a lot, but let's break down the command and output.
 $ docker build --tag "image-example:1.0.0" "$(pwd)"
 ```
 
-This tells Docker we're building an image with a tag of "image-example:1.0.0" and that we want to use the Dockerfile in the current folder. Notice that we don't need to include `Dockerfile` in the command.
+This tells Docker we're building an image with a tag of `image-example:1.0.0` and that we want to use the Dockerfile in the current folder. Notice that we don't need to include `Dockerfile` in the command.
 
 ``` bash
 Sending build context to Docker daemon  50.44MB
@@ -266,7 +267,7 @@ Each step in the Dockerfile creates a new layer of the image with a snapshot of 
 
 ``` bash
 Successfully built d2c00859cae2
-Successfully tagged test:file
+Successfully tagged image-example:1.0.0
 ```
 
 This output gives us a unique identifier of our image and a human-readable name so that we can work with it a bit easier. Now this image is built and ready to be used to create a container.
@@ -283,17 +284,22 @@ a8a33d96b4e7: Already exists
 196d943fac59: Pulling fs layer
 ff00d78cbcf3: Pulling fs layer
 8b971b61b7b6: Pulling fs layer
-337d6d904976: Downloading [==============================>                    ]  7.646MB/12.49MB
+337d6d904976: Downloading [===========>                    ]  7.646MB/12.49MB
 20c027cb1a77: Waiting
 ba27c2e2de1c: Waiting
 ```
 
-What this is doing is following the instructions provided by the Dockerfile to build an image. From our two-line Dockerfile, we're pulling instructions in from another Dockerfile and from another until we reach the base file, most likely ending up at `scratch`, a base image provided on Docker Hub. Docker is smart enough to use caching to prevent having to re-download images every time a container is spun up, which is one of the reasons it's so quick to load.
+What this is doing is following the instructions provided by the Dockerfile to build an image. From our two-line Dockerfile, we're pulling instructions in from another Dockerfile and from another until we reach the base file, most likely ending up at [scratch](https://hub.docker.com/_/scratch), a base image provided on Docker Hub created with the sole purpose of having a starting point for completely custom images.
+
+Docker is smart enough to use caching to prevent having to re-download images every time a container is spun up, which is one of the reasons it's so quick to load.
 
 So now we have an image, but it's not doing us a lot of good. So, what's next?
 
 [Docker Containers](/intro-docker/docker-basics/docker-components/containers/)
 
+{{% notice tip %}}
+You can view the completed code for this section at https://github.com/JDDoesDev/docksal-training-docker/tree/images
+{{% /notice %}}
 
 ### Docker Containers {: .page-title}
 
@@ -312,8 +318,8 @@ Some things to note:
 
 * A container is not permanent: If a container is removed, all data that is not in the image is destroyed.
 * A container is portable: By sharing an image or a Dockerfile to build an image, a container can be recreated identically anywhere Docker can be found.
-* A container is only as powerful as its host: It wouldn't be a good idea to try running a containerized version of a graphical operating system on a Raspberry Pi
-* A container is limited by what is in the image: There will be no more or no less functionality than what is in the Dockerfile or image definition
+* A container is only as powerful as its host: It wouldn't be a good idea to try running a containerized version of a graphical operating system on a Raspberry Pi.
+* A container is limited by what is in the image: There will be no more or no less functionality than what is in the Dockerfile or image definition.
 
 In contrast to a Virtual Machine, a container is much smaller and easier to spin up, often in a matter of seconds.
 
@@ -321,12 +327,12 @@ In contrast to a Virtual Machine, a container is much smaller and easier to spin
 
 In the previous section we talked about images and how they form the blueprints for containers by following the instructions within a Dockerfile or similar. Now we're going to run a few examples of spinning up containers.
 
-Let's take the image we created in our last step and spin up a container. From within the `~/docksal-training/` folder we used in the last step we're going to now run the container.
+Let's take the image we created in our last step and spin up a container. From within the `~/projects/docksal-training-docker/` folder we used in the last step we're going to now run the container.
 
 Enter the following in your terminal:
 
 ``` bash
-$ docker run -it \
+$ docker run -i -t \
   --name=test_container \
   image-example:1.0.0 /bin/bash
 ```
@@ -425,9 +431,11 @@ $ echo 'Test container file' >> ~/container-test
 
 We can check that these files exist by running `cat /app/test` and `cat ~/container-test` which should display the expected text.
 
-> NOTE: the `~` in bash is a shortcut to the current user's home folder. For root, this is `/root`, but for other users it is usually `/Users/<my user name>`.
+{{% notice info %}}
+NOTE: the `~` in bash is a shortcut to the current user's home folder. For root, this is `/root`, but for other users it is usually `/Users/<my user name>`.
+{{% /notice %}}
 
-Now, let's exit our container by typing `exit`. Since we don't have anything running in the container this will cause it to exit.
+Now, let's exit our container by typing `exit`. Since we don't have anything running in the container this will cause it to stop.
 
 Run `docker container rm exampleContainer` to remove the container.
 
@@ -508,8 +516,8 @@ local               bindMountTest
 Perfect! Now, let's spin up a container using that volume:
 
 ``` bash
-$ docker run -it \
-  --name bindtest \
+$ docker run -i -t \
+  --name bindTest \
   --mount source=bindMountTest,target=/app \
   ubuntu /bin/bash
 root@3ffc3d80141d:/#
@@ -538,16 +546,25 @@ Let's exit our container and remove it.
 
 ``` bash
 root@3ffc3d80141d:/# exit
-$ docker container stop bindtest
-$ docker container rm bindtest
+$ docker container stop bindTest
+$ docker container rm bindTest
 ```
 
 Now, let's create some data to test out a bind mount.
 
-First, we're going to need a folder to use as our host data so let's create a `~/docksal-training/` folder. From your home folder, run `mkdir docksal-training` and `cd docksal-training`.
+First, we're going to need a folder to use as our host data so let's use our `~/projects/docksal-training-docker/` folder from the Images section. If this folder doesn't already exist, create it relative to your home folder.
 
-Now let's create a file.
 ``` bash
+$ cd ~
+$ mkdir projects/docksal-training-docker
+$ cd projects/docksal-training-docker
+```
+
+Now let's create a file in a new `app` folder.
+``` bash
+$ mkdir app && cd app
+$ pwd
+/Users/username/projects/docksal-training-docker/app
 $ touch bind-mount-test
 $ echo "Testing a bind mount" >> bind-mount-test
 $ cat bind-mount-test
@@ -555,7 +572,7 @@ $ cat bind-mount-test
 
 You should see the output `Testing a bind mount`.
 
-Since Docker runs system-wide we can run the `docker` command anywhere, so we'll stay in our `docksal-training` folder for now. Next, we're going to spin up a container using a bind mount. It is much the same as using a volume with two differences:
+Since Docker runs system-wide we can run the `docker` command anywhere, so we'll stay in our `docksal-training-docker/app` folder for now. Next, we're going to spin up a container using a bind mount. It is much the same as using a volume with two differences:
 
 1. You'll notice that we're using a `type=bind` argument for the command.
 2. When spinning up a container, Docker will automatically create a volume if it does not exist. This is not the case if we use a folder for `source` and the `source` folder does not exist. We will see an error and the build will fail.
@@ -563,8 +580,8 @@ Since Docker runs system-wide we can run the `docker` command anywhere, so we'll
 Okay, let's spin up a container with a bind mount and see what happens.
 
 ``` bash
-$ docker run -it \
-  --name bindtest \
+$ docker run -i -t \
+  --name bindTest \
   --mount type=bind,source="$(pwd)",target=/app \
   ubuntu /bin/bash
 ```
@@ -592,9 +609,10 @@ Testing a bind mount
 
 Look at that, we've brought our file from the host into the container! Wonderful! Now let's do something with it.
 
-In a new terminal window on your host machine, let's do `echo "And now I'm changed from the host" >> bind-mount-test` within our `docksal-training` folder.
+In a new terminal window on your host machine, let's do `echo "And now I'm changed from the host" >> bind-mount-test` within our `docksal-training-docker/app` folder.
 
 ``` bash
+## In the host machine
 $ cat bind-mount-test
 Testing a bind mount
 And now I'm changed from the host
@@ -602,6 +620,7 @@ And now I'm changed from the host
 
 Let's go back to our container terminal and see what happened.
 ``` bash
+## In the container
 root@04899aa02741:/app# cat bind-mount-test
 Testing a bind mount
 And now I'm changed from the host
@@ -612,6 +631,10 @@ Outstanding! We now have the ability to change files in the container from our h
 There are a lot more feature of bind mounts and other mounts that are beyond the scope of this training. For further reading please check out the [Docker Docks](https://docs.docker.com/storage/bind-mounts/).
 
 Up next, we're going to take a look at Docker registries.
+
+{{% notice tip %}}
+You can view the completed code for this section at https://github.com/JDDoesDev/docksal-training-docker/tree/volumes
+{{% /notice %}}
 
 ### Docker Services {: .page-title}
 
@@ -722,13 +745,17 @@ Let's look back on our [Docker Basics Section](/content/intro-docker/docker-basi
 6. Verify everything works
 7. Ensure everything is setup so that we don't lose data if we stop the container
 
-These steps are not difficult with some practice, but there are many tools that eliminate this setup, allowing you to begin development faster.
+These steps are not difficult with some practice, but there are many tools that eliminate this setup, allowing you to begin development faster and taking a lot of the guesswork out of spinning up your application.
 
 ##### Advantages to a tool that uses Docker
 
 With a tool like Docksal, most of the setup is taken out of the equation and you can begin developing faster. Often times, most commands are wrapped up in a handy command so that long commands like `docker container exec my_container bash -lc "/var/www/vendor/bin/drush en stage_file_proxy"` can be handled in a more intuitive and less verbose manner.
 
 In addition, tools like Docksal take all the guesswork out of deciding whether your application should exist in a single container or across multiple services that work together. They handle the orchestration between services out of the box so that you can get straight to developing.
+
+These tools are often developed, maintained, and contributed to by many developers who are passionate about the project and want to build on it to see it grow. This means that if you're running into a problem, there's a good chance that others have already run into the same problem and there will be an answer waiting for you. Unfortunately, rolling a custom solution does not give you the same advantages and you're potentially stuck with a community of one.
+
+To see a partial list of contributors to the Docksal project, visit the [Credits](https://docs.docksal.io/credits/) page of the Docksal docs.
 
 # Section 3 - Intro to Docksal {: .page-title}
 
@@ -1320,12 +1347,12 @@ They are responsible for making sure that your application has SSH access, can r
 Let's take a look at the output of `fin sysinfo` to see what information we have access to.
 
 ``` bash
-$  fin sysinfo
-     OS
+$ ❯ fin sysinfo
+███  OS
 Darwin Mac OS X 10.14.6
 Darwin DorfMBP 18.7.0 Darwin Kernel Version 18.7.0: Tue Aug 20 16:57:14 PDT 2019; root:xnu-4903.271.2~2/RELEASE_X86_64 x86_64
 
-     ENVIRONMENT
+███  ENVIRONMENT
 MODE : VirtualBox VM
 DOCKER_HOST : tcp://192.168.64.100:2376
 DOCKSAL_NFS_PATH : /Users/jamesflynn/git
@@ -1335,17 +1362,17 @@ NFS EXPORTS:
 /Users/jamesflynn/git 192.168.64.1 192.168.64.100 -alldirs -maproot=0:0
 # ds-nfs>
 
-     FIN
+███  FIN
 fin version: 1.86.2
 
-     DOCKER COMPOSE
+███  DOCKER COMPOSE
 EXPECTED VERSION: 1.23.2
 docker-compose version 1.23.2, build 1110ad01
 docker-py version: 3.6.0
 CPython version: 3.6.6
 OpenSSL version: OpenSSL 1.1.0h  27 Mar 2018
 
-     DOCKER
+███  DOCKER
 EXPECTED VERSION: 18.09.2
 
 Client: Docker Engine - Community
@@ -1367,41 +1394,41 @@ Server: Docker Engine - Community
   OS/Arch:          linux/amd64
   Experimental:     false
 
-     DOCKER MACHINE
+███  DOCKER MACHINE
 EXPECTED VERSION: 0.16.1
 docker-machine version 0.16.1, build cce350d7
 
 NAME      ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS
 docksal   *        virtualbox   Running   tcp://192.168.64.100:2376           v18.09.2
 
-     DOCKSAL: PROJECTS
+███  DOCKSAL: PROJECTS
 project             STATUS                virtual host                                  project root
 
-     DOCKSAL: VIRTUAL HOSTS
+███  DOCKSAL: VIRTUAL HOSTS
 
-     DOCKSAL: DNS
+███  DOCKSAL: DNS
 Successfully requested http://dns-test.docksal
 
-     DOCKER: RUNNING CONTAINERS
+███  DOCKER: RUNNING CONTAINERS
 CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS                PORTS                                                    NAMES
 f95a1d600dbe        docksal/ssh-agent:1.2       "docker-entrypoint.s…"   3 days ago          Up 3 days (healthy)                                                            docksal-ssh-agent
 f5d581ad9436        docksal/dns:1.1             "docker-entrypoint.s…"   3 days ago          Up 3 days (healthy)   192.168.64.100:53->53/udp                                docksal-dns
 de0e1729e381        docksal/vhost-proxy:1.5     "docker-entrypoint.s…"   3 days ago          Up 3 days (healthy)   192.168.64.100:80->80/tcp, 192.168.64.100:443->443/tcp   docksal-vhost-proxy
 
-     DOCKER: NETWORKS
+███  DOCKER: NETWORKS
 NETWORK ID          NAME                   DRIVER              SCOPE
 f0767638af16        _default               bridge              local
 909d942fc925        bridge                 bridge              local
 37afaa2911ed        host                   host                local
 86dbe729b8fc        none                   null                local
 
-     VIRTUALBOX
+███  VIRTUALBOX
 EXPECTED VERSION: 5.2.26
 5.2.26r128414
 
-     DOCKSAL MOUNTS
+███  DOCKSAL MOUNTS
 
-     HDD Usage
+███  HDD Usage
 Filesystem                Size      Used Available Use% Mounted on
 /dev/sda1                46.1G      4.4G     39.3G  10% /mnt/sda1
 ```
@@ -1445,9 +1472,10 @@ The easiest way to start a project with Docksal is to create a new one from a bo
 We're going to begin by entering our terminal and going to a project folder. For demonstration purposes, I'm going to use `~/projects/`, but you're free to use whatever folder works for you. In upcoming lessons we will be pulling projects down from Github, but for this one we're going to use what's already in the system.
 
 1. Open your terminal and go to your project folder.
-``` bash
-$ cd ~/projects
-```
+
+    ``` bash
+    $ cd ~/projects
+    ```
 
 1. Enter the command:
     ``` bash
@@ -1455,14 +1483,14 @@ $ cd ~/projects
     ```
     This will bring up a series of prompts to build our project.
 
-1. At the first prompt, we'll name our project `my-first-docksal-application`
+2. At the first prompt, we'll name our project `my-first-docksal-application`
     ``` bash
     1. Name your project (lowercase alphanumeric, underscore, and hyphen): my-first-docksal-application
     ```
 
-1. This will bring up a prompt to choose a type of project. We're going to start with a static HTML site.
+3. This will bring up a prompt to choose a type of project. We're going to start with a static HTML site.
     ``` bash
-    2. What would you like to install?
+    1. What would you like to install?
       PHP based
         1.  Drupal 8
         2.  Drupal 8 (Composer Version)
@@ -1476,19 +1504,19 @@ $ cd ~/projects
         10. Backdrop CMS
 
       Go based
-        11. Hugo
+        11.  Hugo
 
       JS based
-        12. Gatsby JS
-        13. Angular
+        12.  Gatsby JS
+        13.  Angular
 
       HTML
-        14. Static HTML site
+        14.  Static HTML site
 
     Enter your choice (1-14): 14
     ```
 
-1. Next, we'll be able to verify our setup with the following prompt:
+4. Next, we'll be able to verify our setup with the following prompt:
     ``` bash
     Project folder:   /Users/my.username/projects/my-first-docksal-project
     Project software: Plain HTML
@@ -1497,7 +1525,7 @@ $ cd ~/projects
     Do you wish to proceed? [y/n]: y
     ```
 
-1. After confirming, our services will be created and our application will be running.
+5. After confirming, our services will be created and our application will be running.
 
     **NOTE:** If you haven't run anything in Docksal on your system yet, you will see some images download. This is normal.
 ``` bash
@@ -1521,7 +1549,7 @@ Done! Visit http://my-first-docksal-project.docksal
 
 ##### Let's examine our app:
 
-``` bash
+```bash
 my-first-docksal-project
 ├── .docksal
 │   ├── docksal.env
@@ -1585,13 +1613,14 @@ Now we're going to take an existing repo, pull it down, and spin up a fully func
 
 ##### Setting up for the project
 
-To begin, we need to clone the git repository, or "repo", at https://github.com/JDDoesDev/docksal-training/. We'll do this in the `projects` folder we used in the last section.
+To begin, we need to clone the git repository, or "repo", at https://github.com/JDDoesDev/docksal-training-projects/. We'll do this in the `projects` folder we used in the last section.
+
 
 ``` bash
 $ cd ~/projects
-$ git clone git@github.com:JDDoesDev/docksal-training.git
-$ cd docksal-training
-$ git checkout docksal-training/drupal-site-step-1
+$ git clone git@github.com:JDDoesDev/docksal-training-projects.git
+$ cd docksal-training-projects
+$ git checkout drupal-site-step-1
 ```
 
 Here we're pulling the repo and checking out the Step 1 branch, where we're going to begin working on the project.
@@ -1599,7 +1628,7 @@ Here we're pulling the repo and checking out the Step 1 branch, where we're goin
 ##### Spinning Up Drupal
 
 {{% notice info %}}
-**NOTE:** There is a possibility that the default settings may not provision enough memory or CPU power in your virtual machine for some steps of the next section. If your build fails, then consult the Troubleshooting portion of this section.
+**NOTE:** There is a possibility that the default settings may not provision enough memory or CPU power in your virtual machine for some steps of the next section. If your build fails, then consult the [Troubleshooting](#troubleshooting) portion of this section.
 {{% /notice %}}
 
 Now that we've cloned the repo we're going to run a command we haven't talked about yet: `fin init`
@@ -1608,3 +1637,784 @@ Before we run that, a little info on what `fin init` is and what it does. `fin i
 
 This means that when you run `fin init`, it will remove all existing project containers and volumes, recreate them, and run any other functions defined within the script.
 
+Let's run `fin init` and see what happens.
+
+``` bash
+$ fin init
+```
+
+The output should start with
+
+``` bash
+Step 1  Initializing stack...
+Removing containers...
+Removing network docksal-training_default
+WARNING: Network docksal-training_default not found.
+Removing volume docksal-training_cli_home
+WARNING: Volume docksal-training_cli_home not found.
+Removing volume docksal-training_project_root
+WARNING: Volume docksal-training_project_root not found.
+Removing volume docksal-training_db_data
+WARNING: Volume docksal-training_db_data not found.
+Volume docksal_ssh_agent is external, skipping
+```
+
+The `WARNING:` lines let us know that the project does not already exist, but it also points out that we're attempting to remove the current containers as part of the `fin init` process.
+
+If all runs according to plan you will see Composer do some things, Docksal do some things, and Drupal do some things, eventually ending with
+
+``` bash
+[notice] Starting Drupal installation. This takes a while.
+[success] Installation complete.  User name: admin  User password: 2kEpnqm4dh
+real 26.55
+user 9.47
+sys 3.42
+Open http://docksal-training.docksal in your browser to verify the setup.
+Look for admin login credentials in the output above.
+DONE!  Completed all initialization steps.
+```
+
+Let's visit our newly created Drupal site at `http://docksal-training.docksal` and see what we have.
+
+If everything went as expected, then you should see a vanilla Drupal 8 site with no content. However, there were a few things that needed to happen for us to get this spun up and functioning. If you've ever installed a Drupal site, you know that ordinarily we need to alter some database settings and customize other settings for Drupal to install. Let's take a look at where these things happened with Docksal.
+
+##### Examining `fin init`
+
+The `fin init` command exists in two pieces, both of which are inside the `.docksal/commands` folder.
+
+The files are `init` and `init-site`
+
+``` bash
+.docksal
+├── commands
+│   ├── init
+│   └── init-site
+```
+
+When you put a file in the `.docksal/commands` folder, it tells Docksal that you want to make whatever is inside that file available as a command to this project, and this project only. The commands should be written as Bash scripts and it should be understood that the commands, by default, will be run from **outside** the container. This means that if you want something to happen **inside** the container, you need to wrap it in the `fin` command.
+
+Inside our `.docksal/commands/init` file we'll notice a few things:
+
+First, our shebang:
+
+``` bash
+#!/usr/bin/env bash
+```
+
+If you're unfamiliar, a `shebang` tells our system what it should use to run the remainder of the file. In this case, it's being told to run the file as interpreted by `bash`.
+
+Further down, there are two commands that are being run: `fin project reset -f` and `fin init-site`.
+
+* `fin project reset -f` does exactly what it says it does. It resets the project to a clean state by removing all containers and volumes and restarting them.
+
+* `fin init-site` begins the script defined at `.docksal/commands/init-site`
+
+##### Examining `fin init-site`
+
+The opening of `.docksal/commands/init-site` looks similar to `.docksal/commands/init`, but there is one line that makes a major difference:
+
+``` shell
+#: exec_target = cli
+```
+
+This tells Docksal that we will be running the commands inside the `cli` container and commands don't need to be wrapped in `fin`. This is extremely important to remember when customizing our project with our own commands.
+
+The rest of the `init-site` file is comprised of the steps needed to install Drupal, including:
+
+* Running `composer install`
+* Copying our custom `settings.php` and `settings.local.php` to `web/sites/default/`
+* Fixing permissions
+* Installing Drupal using Drush
+
+At the end of this script, it outputs how long it took to run, the URL of the new project, and the generated username and password combination.
+
+##### Summary
+
+In this section we pulled a customized Drupal 8 boilerplate from a git repo and spun it up on our local dev environment with one command, `fin init`. We also tested that our site exists by visiting the generated URL. We should have an understanding of what `fin init` is for and how to use it to start or restart a project from a clean state.
+
+We also examined how `fin init` uses `init-site` to build a project and the steps it goes through, including telling Docksal to run the commands within the `cli` container.
+
+Next, we're going to customize our install and our site to make it a little less default.
+
+#### Troubleshooting
+
+It is likely that your `fin init` may fail due to a Composer memory error. If you see output similar to the following:
+``` bash
+The following exception is caused by a lack of memory or swap, or not having swap configured
+Check https://getcomposer.org/doc/articles/troubleshooting.md#proc-open-fork-failed-errors for details
+
+
+  [ErrorException]
+  proc_open(): fork failed - Cannot allocate memory
+
+```
+
+That means you'll need to add some resources to your virtual machine.
+
+1. Run `fin system stop` to shut down the VM.
+2. Open your VirtualBox application.
+3. Highlight the `docksal` machine, making sure it is in a `Powered off` state.
+4. Select "Settings".
+5. Under "System > Motherboard" increase the memory to 4096 MB
+6. Under "System > Processor" increase the CPUs to 4
+7. Go back to your terminal and run `fin system start`
+8. Retry `fin init`
+
+## Customizing {: .page-title}
+
+---
+title: "Customizing a Project"
+weight: 6
+---
+
+#### Make Our Drupal Project Our Own
+
+In the last section, we installed a Drupal site using a boilerplate Composer-based template, but what if we want to make changes to some of our installation settings? In this section we're going to look at a few places where we can customize our project to make it a little more our own.
+
+Let's start off by making some adjustments within our `docksal.env` file.
+
+##### Customizing `docksal.env`
+
+The `docksal.env` file contains environmental variables for Docksal, outside of the project. These are variables that the project looks for when starting up in order to run the correct settings, build the right services, and others. We're going to start by changing our stack to match a production environment.
+
+In your favorite text editor or IDE of choice, open `~/projects/docksal-training-projects/.docksal/docksal.env`
+
+The default settings here are:
+
+``` shell
+DOCKSAL_STACK=default
+DOCROOT=web
+MYSQL_PORT_MAPPING='0:3306'
+XDEBUG_ENABLED=0
+COMPOSER_MEMORY_LIMIT=-1
+```
+
+**NOTE:** Comments left out for brevity.
+
+We're going to make a couple of changes now. Let's say we're using Pantheon for hosting. In order to mimic the Pantheon production environment, we can change our stack. Change `DOCKSAL_STACK=default` to `DOCKSAL_STACK=pantheon` and save the file.
+
+This won't do anything until we update our project. We're going to do that using the command `fin up`.
+
+In your terminal, run
+
+``` shell
+$ fin up
+```
+
+This will trigger all of your services to restart and update any that have changed.
+
+If we look at the Pantheon stack we'll see that it's different from the default stack in a number of ways. This file can be found at `~/.docksal/stacks/stack-pantheon.yml`
+
+The Pantheon stack includes:
+
+* Nginx 1.14
+* MariaDB 10.1
+* PHP 7.2
+* Varnish 4.1
+* Redis 4.0
+* ApacheSolr 3.6
+
+And these changes will be reflected when you run `fin up`.  Let's look at the output:
+
+``` shell
+docksal-training_cli_1 is up-to-date
+Recreating docksal-training_db_1    ... done
+Recreating docksal-training_web_1 ... done
+Creating docksal-training_solr_1  ... done
+Creating docksal-training_redis_1 ... done
+Creating docksal-training_varnish_1 ... done
+Waiting for project stack to become ready...
+Waiting for project stack to become ready...
+Project URL: http://docksal-training.docksal
+```
+
+As you can see, we've created a `solr`, `redis`, and `varnish` service in our project now. This gives us access to these services locally to mimic settings we may have on our production server.
+
+Great, now let's make some more edits.
+
+We're going to enable Xdebug and change our project's domain through `docksal.env`. Change the line `XDEBUG_ENABLED=0` to `XDEBUG_ENABLED=1` and add the line `VIRTUAL_HOST=mycustomsite.docksal` in your `docksal.env` file.
+
+Save and run `fin up` again.
+
+Let's look at the output:
+
+``` shell
+$ fin up
+Starting services...
+Recreating docksal-training_cli_1 ...
+Recreating docksal-training_solr_1 ...
+Recreating docksal-training_cli_1  ... done
+Recreating docksal-training_solr_1    ... done
+Recreating docksal-training_web_1  ... done
+Recreating docksal-training_varnish_1 ... done
+Waiting for project stack to become ready...
+Project URL: http://mycustomsite.docksal
+```
+
+Notice how our `Project URL:` has changed to reflect our new domain. Go ahead and visit it to make sure everything is still working.
+
+##### Customizing
+
+As a hypothetical, let's say that we want to change the site name on install. We could do this by simply editing `.docksal/commands/init-site` which makes sense, but alternatively we could add an environment variable to `docksal.env` and alter `init-site` once. Let's try it.
+
+1. In your text editor, open `docksal.env`
+2. Add the line `SITE_NAME="This Site Has A Different Name"` to the bottom of the file.
+3. In your text editor, open `.docksal/commands/init-site`
+4. Look for the lines that install Drupal using Drush, around line 89.
+5. Change the line that starts with `--site-name=` to `--site-name="${SITE_NAME}"`
+    * **NOTE:** The double-quotes are important here.
+6. Save both files.
+
+If we were to run `fin init` now, the site name wouldn't work. That's because, as mentioned before, the `init-site` script runs _inside_ the `cli` container. We need to pass this variable so that the `cli` container has access.
+
+To do that, we're going to need to alter the `docksal.yml` file, but first, what is `docksal.yml`?
+
+`docksal.yml` is a `docker-compose` file that defines and helps tie services together. Our default `docksal.yml` is pretty bare, but it contains something that will help us out. Let's take a look. Open `.docksal/docksal.yml`. You should see:
+
+``` yml
+version: "2.1"
+services:
+  cli:
+    environment:
+      - COMPOSER_MEMORY_LIMIT
+```
+
+This doesn't define any services by itself. Those are defined in the Docksal stacks, but in the processing order, Docksal looks for this file and uses it to alter the default behavior or the current `cli` service. Right now we're passing in the `COMPOSER_MEMORY_LIMIT` variable that we have defined in `docksal.env`.
+
+To get access to our new site name, we need to tell Docksal to pass the `SITE_NAME` variable as well.
+
+1. In your text editor open `docksal.yml`
+2. In the `environment` section, add the line `- SITE_NAME`
+    **NOTE:** Indentation of this line must match the indentation of the `- COMPOSER_MEMORY_LIMIT` line, otherwise the YAML will not work.
+3. Save your file
+
+Now we're ready to run `fin init`. After everything has run, visit your site at `http://mycustomsite.docksal/` and notice that the site name has changed. Now we can easily change the site name in one spot.
+
+##### Going Further with Customization
+
+There are many other customizations that we can do with our `docksal.env` and `docksal.yml` files. We can add labels to services which are used to define functionality, we can change domain names, and we can even define our own services and variables to be used for our projects. In the next section we're going to explore some more advanced customizations using the `docksal.env` and `docksal.yml` files.
+
+{{% notice info %}}
+**NOTE:** The code for this section can be found in the `drupal-site-step-2` branch of [github.com/JDDoesDev/docksal-training-projects].
+{{% /notice %}}
+
+## Advanced Customization {: .page-title}
+
+---
+title: "Advanced Customizations"
+weight: 7
+---
+
+#### Truly Making a Project Custom
+
+In the last section we customized a few things to change our domain name and the site name. In this section, we're going to show how to extend a stack, change versions of images, and even customize and extend Docksal images using a Dockerfile.
+
+##### Project 1: Configuring to Match Production
+
+For this project, we're going to use the following scenario:
+
+{{% notice info %}}
+Your client has a site on Acquia using PHP 7.3. You know that the default Docksal Acquia stack uses PHP 7.2, but you want to match environments. How do you do this?
+{{% /notice %}}
+
+1. **Choose the right stack**
+
+    We're going to start by configuring Docksal to use the Acquia stack. In your `docksal.env` file, find the line `DOCKSAL_STACK=pantheon` and change it to `DOCKSAL_STACK=acquia`.
+
+1. **Configure the docroot**
+
+    Acquia projects require that the Drupal installation live in `docroot` instead of `web`. This is the default webroot for Docksal, but to remain verbose we're going to change the environment variable. Find the line `DOCROOT=web` and change it to `DOCROOT=docroot`
+
+1. **Update docroot and composer.json**
+
+    Since our projects have been using the `web` folder for the docroot so far, we need to rename it. This is most easily accomplished in an IDE or in your system's version of a file explorer, however you can do this on a macOS or Linux terminal by using the `mv` command. `mv web docroot`. In addition, we also need to update our `composer.json` file to point to the correct folders.
+
+    In `composer.json`, in the `extra.installer-paths` section, you need to change all instances of `web/` to `docroot/`. Example: `"web/core": ["type:drupal-core"],` becomes `"docroot/core": ["type:drupal-core"],`
+
+2. **Configure the PHP version**
+
+    The PHP version is defined in the `cli` service. The default image for the `cli` service is `docksal/cli:2.6-php7.2`. We can change this in `docksal.env` by adding the following variable: `CLI_IMAGE=docksal/cli:2.9-php7.3`. This is the latest version of this image tagged with PHP 7.3.
+
+    Inside `~/.docksal/stacks/services.yml` the `cli` section runs logic for the image version: `image: ${CLI_IMAGE:-docksal/cli:2.6-php7.2}` which checks to see if the `CLI_IMAGE` environment variable is set, and if not, uses the default.
+
+3. **Update your project**
+
+    The easiest way to do this is to run `fin up`, however if you have not initialized your project yet, you should run `fin init`. For this exercise we're going to run `fin init`.
+
+Run `fin init` and watch as the images that aren't on your system are pulled down and your project spins up using PHP 7.3.x.
+
+{{% notice tip %}}
+The completed code for Project 1 can be found at https://github.com/JDDoesDev/docksal-training-projects/tree/adv-cust-project-1
+{{% /notice %}}
+
+##### Project 2: The Front-end Team Requires a Specific Version of NPM and NodeJS
+
+For this project, we're going to use the following scenario:
+
+{{% notice info %}}
+The front-end team is using a theme that is shared across multiple projects as a starter-kit. In order to reduce compatibility errors, they have requested that the Docksal setup accounts for this by locking to a specific version of NodeJS and NPM so that they don't have to completely overhaul the NPM dependencies.
+{{% /notice %}}
+
+To accomplish this, we're going to do a couple of things in order to lock a version of NodeJS and NPM.
+
+1. **Lock the versions in a custom Dockerfile**
+
+    We're going to create a custom Dockerfile that extends the default `cli` image within our project.
+
+    1. Create the Dockerfile at `.docksal/services/cli/Dockerfile`
+    2. Extend the current image by starting the file with
+
+        ``` dockerfile
+        FROM docksal/cli:2.9-php7.3
+        ```
+
+        This tells Docksal that we're still going to use this image, but we're doing something more with it.
+
+    1. Change the Dockerfile user so that settings aren't changed as `root`
+
+        ``` dockerfile
+        USER docker
+        ```
+
+    1. Run commands that will install and lock the version of NodeJS and NPM.
+
+        ``` dockerfile
+        RUN set -e; \ # Note the ';' and the '\'.
+          # Initialize the user environment (this loads nvm)
+          . $HOME/.profile; \
+          # Install the necessary nodejs version and remove the unnecessary version
+          nvm install 8.11.0; \
+          nvm alias default 8.11.0; \
+          nvm use default; \
+          nvm uninstall 10.16.3; \
+          # Install packages
+          npm install -g npm@6.1.0; \
+          # Cleanup
+          nvm clear-cache && npm cache clear --force; \
+          # Fix npm complaining about permissions and not being able to update
+          sudo rm -rf $HOME/.config
+      ```
+
+        Notice that every command in the `RUN` directive is followed with `; \` except the last line. This is because `RUN` directives are concatinated into a single line when run.
+
+        We're sourcing the `~/.profile` file and getting our NVM (Node Version Manager) alias early on so that we can choose our version. In this case, we're using 8.11.0. Following that, we set this version as our default.
+
+        Next, we install our locked version of NPM, clean up our caches, and then run some permission fixes, but we're not done yet.
+
+    2. Return control to the `root` user.
+
+      ``` docker
+      USER root
+      ```
+
+          Our completed Dockerfile should look like this
+
+          ```dockerfile
+          FROM docksal/cli:2.9-php7.3
+
+          USER docker
+
+          # Install additional global npm dependencies
+          RUN set -e; \
+              # Initialize the user environment (this loads nvm)
+              . $HOME/.profile; \
+              # Install the necessary nodejs version
+              nvm install 8.11.0; \
+              nvm alias default 8.11.0; \
+              nvm use default; \
+              nvm uninstall 10.16.3; \
+              # Install packages
+              npm install -g npm@6.1.0; \
+              # Cleanup
+              nvm clear-cache && npm cache clear --force; \
+              # Fix npm complaining about permissions and not being able to update
+              sudo rm -rf $HOME/.config
+
+          USER root
+          ```
+
+2. **Call the custom Dockerfile**
+
+        In `docksal.yml` we're going to define our `cli` service.
+
+
+        1. Open `.docksal/docksal.yml`
+        2. Add the following to the `cli:` section:
+
+            ```yaml
+            cli:
+              image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
+              build: ${PROJECT_ROOT}/.docksal/services/cli
+            ```
+
+            This names the image based on our project's name and then tells Docksal where to find the file we're going to build the new image from.
+
+3. **Update the project**
+
+        Instead of running `fin init` here, we're going to run `fin up`. Keep an eye on the output as the new image is built.
+
+        ``` shell
+        $ fin up
+        Starting services...
+        Building cli
+        Step 1/4 : FROM docksal/cli:2.9-php7.3
+        ---> bef7b0b7014f
+        Step 2/4 : USER docker
+        ---> Using cache
+        ---> d563a10b8db0
+        Step 3/4 : RUN set -e;   . $HOME/.profile;   nvm install 8.11.0;   nvm alias default 8.11.0;   nvm use default;   npm install -g npm@6.1.0;   nvm clear-cache && npm cache clear --force;   sudo rm -rf $HOME/.config
+        ---> Running in d503e299f557
+        /bin/sh: 39: /home/docker/.profile: [[: not found
+        Downloading and installing node v8.11.0...
+        Downloading https://nodejs.org/dist/v8.11.0/node-v8.11.0-linux-x64.tar.xz...
+        ######################################################################## 100.0%
+        Computing checksum with sha256sum
+        Checksums matched!
+        Now using node v8.11.0 (npm v5.6.0)
+        default -> 8.11.0 (-> v8.11.0)
+        Now using node v8.11.0 (npm v5.6.0)
+        Uninstalled node v10.16.3
+        /home/docker/.nvm/versions/node/v8.11.0/bin/npx -> /home/docker/.nvm/versions/node/v8.11.0/lib/node_modules/npm/bin/npx-cli.js
+        /home/docker/.nvm/versions/node/v8.11.0/bin/npm -> /home/docker/.nvm/versions/node/v8.11.0/lib/node_modules/npm/bin/npm-cli.js
+        + npm@6.1.0
+        added 247 packages, removed 41 packages and updated 129 packages in 25.413s
+        nvm cache cleared.
+        npm WARN using --force I sure hope you know what you are doing.
+        Removing intermediate container d503e299f557
+        ---> 4d9ec2ec20f4
+        Step 4/4 : USER root
+        ---> Running in 70ebd3d709ff
+        Removing intermediate container 70ebd3d709ff
+        ---> 1c70700b6839
+        Successfully built 1c70700b6839
+        Successfully tagged my-first-docksal-project_cli:latest
+        ```
+
+        Every step in the Dockerfile is tagged in the image with a hash.
+
+        ``` bash
+        Step 1/4 : FROM docksal/cli:2.9-php7.3
+        ---> bef7b0b7014f
+        ```
+
+        The hash `bef7b0b7014f` indicates a layer of the image. If something were to break when building the image, this gives us a point of reference to examine the image and see what happened. As you can see, our image built successfully and our system now has the correct versions of NodeJS and NPM installed. We can check this by running the following:
+
+        ``` bash
+        $ fin exec node -v
+        v8.11.0
+
+        $ fin exec npm -v
+        6.1.0
+        ```
+
+    Now our front-end team has the version they need installed, and everyone is happy.
+
+{{% notice tip %}}
+The completed code for Project 2 can be found at https://github.com/JDDoesDev/docksal-training-projects/tree/adv-cust-project-2
+{{% /notice %}}
+
+##### Project 3: A Multi-server Project
+
+For this lesson we're going to look at the following scenario:
+
+{{% notice info %}}
+A client wants a decoupled solution to be hosted on two servers. The Drupal side will be hosted on Acquia and the front-end side will be hosted on a different server. The project is going to use GatsbyJS for the front-end.
+{{% /notice %}}
+
+Now, we can build off our last step by continuing to grow our `docksal.yml` and `docksal.env` files. We're also going to add in some custom commands to make our life a little bit easier in the long run.
+
+Let's start off by listing what we're going to needing for this project:
+
+* A Drupal installation on an Acquia Stack
+* Multiple domains
+* Two different simulated servers
+* The ability to connect the two servers
+* NodeJS
+* npm
+* Gatsby CLI
+
+Now, we could simulate the different servers by simply using multiple VirtualHosts in Apache, but that still makes it a little too easy for the Drupal and Gatsby side to communicate. To overcome this, we're going to simulate by keeping the Gatsby server in its own service, separate from the Drupal site.
+
+However, we can still use a shared codebase so that we only need to maintain a single git repo.
+
+Let's get started:
+
+1. **Create a Custom Gatsby Service - Dockerfile**
+
+        To do this we're going to use both a custom Dockerfile and edit our `docksal.yml`. Let's begin by creating the custom Dockerfile.
+
+        1. Create the file `.docksal/services/gatsby/Dockerfile`
+        2. We're going to extend the default Docksal CLI image so start the file with:
+
+            ```dockerfile
+            FROM docksal/cli:2.9-php7.3
+            ```
+
+        3. We want to run all of our installations as our default container user "docker" so we need to make sure to switch users in the Dockerfile.
+
+            ``` dockerfile
+            USER docker
+            ```
+
+        4. Now we want to ensure that the commands run in Bash instead of the default shell. We need to tell the image to build that way.
+
+          ``` dockerfile
+          SHELL ["/bin/bash", "-c"]
+          ```
+
+            This tells Docker to build this layer of the image as though it were in a Bash shell. The flag `-c` tells it to get ready for the command.
+
+        5. This next section should look pretty familiar. We're going to tell the image to add in a locked version of NodeJS, a locked version of NPM, and this time we're adding in Gatsby CLI.
+
+            ``` dockerfile
+            RUN set -e; \
+              # Initialize the user environment (this loads nvm)
+              source $HOME/.profile; \
+              # Install the necessary nodejs version
+              nvm install 10.15.0; \
+              nvm alias default 10.15.0; \
+              nvm use default; \
+              # Install packages
+              npm install -g npm@6.4.1; \
+              npm install -g gatsby-cli; \
+              # Cleanup
+              nvm clear-cache && npm cache clear --force; \
+              # Fix npm complaining about permissions and not being able to update
+              sudo rm -rf $HOME/.config;
+            ```
+
+              The biggest changes here from our last project are that we're locking NodeJS at 10.15.0, we're installing npm 6.4.1, and we're installing Gatsby CLI.
+
+        1. We need to return to the default shell and switch back to the `root` user.
+
+            ``` dockerfile
+            SHELL ["/bin/sh", "-c"]
+
+            USER root
+            ```
+
+              Just like our earlier `SHELL` directive, we're running the command to change back to `sh`, the default shell, and then switching to the `root` user for further commands.
+
+        1. Finally, we need to tell our service to expose the port that the development server for Gatsby runs on. In this case, `8000`.
+
+            ``` dockerfile
+            EXPOSE 8000
+            ```
+
+        The final Dockerfile should look like this:
+
+        ``` dockerfile
+        FROM docksal/cli:2.9-php7.3
+
+        USER docker
+
+        SHELL ["/bin/bash", "-c"]
+        # Install additional global npm dependencies
+        RUN set -e; \
+            # Initialize the user environment (this loads nvm)
+            source $HOME/.profile; \
+            # Install the necessary nodejs version
+            nvm install 10.15.0; \
+            nvm alias default 10.15.0; \
+            nvm use default; \
+            # Install packages
+            npm install -g npm@6.4.1; \
+            npm install -g gatsby-cli; \
+            # Cleanup
+            nvm clear-cache && npm cache clear --force; \
+            # Fix npm complaining about permissions and not being able to update
+            sudo rm -rf $HOME/.config;
+
+        SHELL ["/bin/sh", "-c"]
+
+        USER root
+
+        EXPOSE 8000
+        ```
+
+        Save the Dockerfile and close it out.
+
+2. **Create a Custom Gatsby Service - `docksal.yml`**
+
+        Now that we have our Dockerfile created, we need to tell Docksal to use it when putting together the application. For that, we need to open `.docksal/docksal.yml` and make some changes.
+
+        Remember, indentation matters in a YAML file.
+
+        1. In our `docksal.yml` file we're going to define a new service. This will go under the parent `services` and should have the same indentation as our customized `cli` service. We're going to name this service `gatsby`.
+
+            ``` yaml
+            version: "2.1"
+            services:
+              cli:
+                ...
+              gatsby:
+            ```
+
+        2. In order to function within our application, there are a few things that we need to pass to the `gatsby` service. The host user ID, the host group ID, and the DNS information. We can pass the host user and group IDs through the `environment` component and the DNS settings through the DNS component.
+
+            ``` yaml
+            gatsby:
+              environment:
+                - HOST_UID
+                - HOST_GID
+              dns:
+                - ${DOCKSAL_DNS1}
+                - ${DOCKSAL_DNS2}
+            ```
+
+            The `DOCKSAL_DNS1` and `DOCKSAL_DNS2` variables are defined in the `fin` binary based on the local IP address of the Docksal VM and the remote DNS server `8.8.8.8`
+
+        3. Now we need to tell Docksal a little more about our service. We're going to do this by defining the hostname, the image name, and where to build the image from. We can do this by adding a few more items to our `docksal.yml`. For consistency with other services, we're going to place these immediately following the `gatsby:` declaration.
+
+            ``` yaml
+            gatsby:
+              hostname: gatsby
+              image: ${COMPOSE_PROJECT_NAME_SAFE}_gatsby
+              build: ${PROJECT_ROOT}/.docksal/services/gatsby
+              environment: ...
+            ```
+
+            The hostname is what we can use to identify this service without having to type the entire service name out.
+
+            Also, notice that we did _not_ include `Dockerfile` in our build. This is on purpose because Docker knows we're looking for a Dockerfile.
+
+        4. It's time to tell Docksal what domain to use for this service. We're going to do this by using `labels`. We'll be using the `io.docksal.virtual-host`, `io.docksal.virtual-port`, and `io.docksal.cert-name` labels for this.
+
+            One thing to note is that when we run the command to start the development server for Gatsby, it's going to start a NodeJS process so the domain will point directly to this service and load what is being served by NodeJS.
+
+            Add the following below your `build:` line:
+
+            ``` yaml
+            labels:
+              - io.docksal.virtual-host=gatsby.${VIRTUAL_HOST}
+              - io.docksal.virtual-port=8000
+              - io.docksal.cert-name=${VIRTUAL_HOST_CERT_NAME:-none}
+            ```
+
+            These set the domain, which will be `gatsby.mycustomsite.docksal`, the port that this domain will point to, and the cert name if we want or need to simulate an SSL environment.
+
+        5. Next, we need to tell the service where it should look for files to mount a volume. We'll do this using `volumes:` and point specifically to the `gatsby` folder.
+
+            Below your `labels` put in the `volumes:` information
+
+            ``` yaml
+            volumes:
+               - ${PROJECT_ROOT}/gatsby:/var/www/gatsby
+               - ${SSH_AUTH_SOCK:-docksal_ssh_agent}:${SSH_AUTH_SOCK:-/.ssh-agent}:ro
+            ```
+
+            We're pointing this service to create an unnamed volume mounted to our `gatsby` folder that will exist as `/var/www/gatsby` within the container. We're also passing along our SSH keys in case we need them for anything.
+
+        6. Now some final touches to make life easier. We're going to add in a `working_dir` that makes it easier for us to run commands in our container, and a little environment variable that allows for us to watch for file changes, which is very handy when working with something using any kind of live-reload functionality.
+
+            We do this because the NFS bind we're using for our volumes does _not_ track file changes and send notifications. Instead, we're using [Chokidar](https://www.npmjs.com/package/chokidar), an NPM package that simulates filesystem events.
+
+            Add the following to your `docksal.yml`:
+
+            ``` yaml
+            environment:
+              - HOST_UID
+              - HOST_GID
+              - CHOKIDAR_USEPOLLING=1 # <== New Line
+            working_dir: /var/www/gatsby # <== New Line
+            ```
+
+        Our `docksal.env` should look like this now:
+
+        ``` yml
+        version: "2.1"
+        services:
+          cli:
+            image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
+            build: ${PROJECT_ROOT}/.docksal/services/cli
+            environment:
+              - COMPOSER_MEMORY_LIMIT
+              - SITE_NAME
+          gatsby:
+            hostname: gatsby
+            image: ${COMPOSE_PROJECT_NAME_SAFE}_gatsby
+            build: ${PROJECT_ROOT}/.docksal/services/gatsby
+            labels:
+              - io.docksal.virtual-host=gatsby.${VIRTUAL_HOST}
+              - io.docksal.virtual-port=8000
+              - io.docksal.cert-name=${VIRTUAL_HOST_CERT_NAME:-none}
+              - io.docksal.shell=bash
+            volumes:
+              - ${PROJECT_ROOT}/gatsby:/var/www/gatsby
+              - ${SSH_AUTH_SOCK:-docksal_ssh_agent}:${SSH_AUTH_SOCK:-/.ssh-agent}:ro
+            environment:
+              - HOST_UID
+              - HOST_GID
+              - CHOKIDAR_USEPOLLING=1
+            working_dir: /var/www/gatsby
+            dns:
+              - ${DOCKSAL_DNS1}
+              - ${DOCKSAL_DNS2}
+        ```
+
+        But don't close it out yet. There's a bit more to do here.
+
+3. **Add a Custom Web Service for the Static Build**
+
+        In order to fully simulate a two server setup, we want to let our Gatsby static site have its very own web server. We're going to do this by creating a custom web service that will handle the requests to the static site and route them to the Gatsby service and volume.
+
+        1. Start by creating another service in your `docksal.yml` file. Call it `gatsby_web`. This should be the same indentation as your other services.
+
+            ``` yaml
+              gatsby_web:
+            ```
+
+        2. We're going to use the `docksal/apache:2.4-2.3` image for this so let's add that image to our service.
+
+            ``` yaml
+            gatsby_web:
+              image: docksal/apache:2.4-2.3
+            ```
+
+        3. Next, tell Apache where to point the webserver by creating a volume for the server.
+
+            ``` yaml
+              gatsby_apache:
+                image: docksal/apache:2.4-2.3
+                volumes:
+                  - ${PROJECT_ROOT}/gatsby:/var/www/gatsby
+            ```
+
+        4. We need to set an environment variable to tell apache where the docroot of our project is, otherwise it defaults to `/var/www/docroot`. We'll set that next.
+
+            ``` yaml
+                environment:
+                  - APACHE_DOCUMENTROOT=/var/www/gatsby/public
+            ```
+
+        5. Finally, we're going to assign the domain using a label, much like we did with our `gatsby` service.
+
+            ``` yaml
+                labels:
+                  - io.docksal.virtual-host=static.${VIRTUAL_HOST}
+            ```
+
+        Our new service should look like:
+
+        ``` yaml
+          gatsby_apache:
+            image: docksal/apache:2.4-2.3
+            volumes:
+              - ${PROJECT_ROOT}/gatsby:/var/www/gatsby
+            environment:
+              - APACHE_DOCUMENTROOT=/var/www/gatsby/public
+            labels:
+              - io.docksal.virtual-host=static.${VIRTUAL_HOST}
+        ```
+
+        We are not going to cover building a decoupled project here, but to test this you could create an `index.html` inside the `gatsby\public` folder, run `fin project start` because `fin up` may not capture all of your changes, and visit `static.mycustomsite.docksal` to see it load.
+
+{{% notice tip %}}
+The completed code for Project 3 can be found at https://github.com/JDDoesDev/docksal-training-projects/tree/adv-cust-project-3
+{{% /notice %}}
+
+##### Summary
+
+In this section we went through many of the advanced customizations we can do with Docksal services using `docksal.yml`, `docksal.local`, and even a couple of custom Dockerfiles. We created a two server application, changed hosting providers, and locked down versions of certain tools to keep our team happy. As you can see, Docksal is an extremely flexible and powerful tool.
+
+Next, we're going to look into using local files for settings and variables that should not live in the repo.

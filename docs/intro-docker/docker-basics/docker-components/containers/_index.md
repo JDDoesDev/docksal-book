@@ -27,11 +27,13 @@ Let's take the image we created in our last step and spin up a container. From w
 Enter the following in your terminal:
 
 ``` bash
-$ docker run -it \
+$ docker run -i -t \
   --name=test_container \
   image-example:1.0.0 /bin/bash
 ```
 
 This will start the container and allow us to use the command line from within the container. Go ahead and poke around a bit. It's a fully functional Ubuntu install within a container on your host machine that took only a few seconds to setup!
+
+When you're done, you can exit the container by entering `exit` at the command line. This will also stop the container.
 
 Up next, we're going to explore [storage options](/intro-docker/docker-basics/docker-components/storage) for containers.

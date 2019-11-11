@@ -41,7 +41,7 @@ Successfully tagged image-example:1.0.0
 ```
 
 {{% notice info %}}
-**NOTE:** In the previous command the `"$(pwd)"` refers to the current folder.
+**NOTE:** In the previous command the `"$(pwd)"` is a bash scripting method that takes the output of the `pwd` command and returns it as a string to print. This creates a reference to the current folder.
 {{% /notice %}}
 
 Doesn't seem like a lot, but let's break down the command and output.
@@ -50,7 +50,7 @@ Doesn't seem like a lot, but let's break down the command and output.
 $ docker build --tag "image-example:1.0.0" "$(pwd)"
 ```
 
-This tells Docker we're building an image with a tag of "image-example:1.0.0" and that we want to use the Dockerfile in the current folder. Notice that we don't need to include `Dockerfile` in the command.
+This tells Docker we're building an image with a tag of `image-example:1.0.0` and that we want to use the Dockerfile in the current folder. Notice that we don't need to include `Dockerfile` in the command.
 
 ``` bash
 Sending build context to Docker daemon  50.44MB
@@ -69,7 +69,7 @@ Each step in the Dockerfile creates a new layer of the image with a snapshot of 
 
 ``` bash
 Successfully built d2c00859cae2
-Successfully tagged test:file
+Successfully tagged image-example:1.0.0
 ```
 
 This output gives us a unique identifier of our image and a human-readable name so that we can work with it a bit easier. Now this image is built and ready to be used to create a container.
@@ -86,14 +86,19 @@ a8a33d96b4e7: Already exists
 196d943fac59: Pulling fs layer
 ff00d78cbcf3: Pulling fs layer
 8b971b61b7b6: Pulling fs layer
-337d6d904976: Downloading [==============================>                    ]  7.646MB/12.49MB
+337d6d904976: Downloading [===========>                    ]  7.646MB/12.49MB
 20c027cb1a77: Waiting
 ba27c2e2de1c: Waiting
 ```
 
-What this is doing is following the instructions provided by the Dockerfile to build an image. From our two-line Dockerfile, we're pulling instructions in from another Dockerfile and from another until we reach the base file, most likely ending up at `scratch`, a base image provided on Docker Hub. Docker is smart enough to use caching to prevent having to re-download images every time a container is spun up, which is one of the reasons it's so quick to load.
+What this is doing is following the instructions provided by the Dockerfile to build an image. From our two-line Dockerfile, we're pulling instructions in from another Dockerfile and from another until we reach the base file, most likely ending up at [scratch](https://hub.docker.com/_/scratch), a base image provided on Docker Hub created with the sole purpose of having a starting point for completely custom images.
+
+Docker is smart enough to use caching to prevent having to re-download images every time a container is spun up, which is one of the reasons it's so quick to load.
 
 So now we have an image, but it's not doing us a lot of good. So, what's next?
 
 [Docker Containers](/intro-docker/docker-basics/docker-components/containers/)
 
+{{% notice tip %}}
+You can view the completed code for this section at https://github.com/JDDoesDev/docksal-training-docker/tree/images
+{{% /notice %}}

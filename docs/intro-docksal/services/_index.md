@@ -1,6 +1,6 @@
 ---
 title: "Docksal Services"
-weight: 3
+weight: 2
 ---
 
 ## Project and System Services

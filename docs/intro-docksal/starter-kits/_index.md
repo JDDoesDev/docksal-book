@@ -9,7 +9,7 @@ Docksal ships with many different starter-kits out of the box to allow you to sp
 
 ### Default Starter-kits
 
-As noted in the "What's Docksal?" section, there are several starter-kits that you can use to create a project.
+As noted in the ["What's Docksal?"](/docs/intro-docksal/whats-docksal/) section, there are several starter-kits that you can use to create a project.
 
 They are:
 
@@ -26,7 +26,7 @@ They are:
 * Gatsby JS
 * Angular
 
-In addition, here are some of the other services that are available on Docksal's Github:
+In addition, here are some of the other services that are available on [Docksal's Github](https://github.com/docksal):
 
 * backstopjs
 * bats

@@ -64,6 +64,6 @@ I would like to preface this with the statement that I have been using only Dock
 
 * **Configuration for Hosting Providers**
 
-    There are stacks in place to mimic Pantheon and Acquia two of the more popular Drupal hosting providers. In addition, there are built in commands to use Pantheon's `terminus` and Platform.sh's `platform` CLI utilities by default, allowing for easier local development closely coupled with your hosting provider.
+    There are stacks in place to mimic Pantheon and Acquia, two of the more popular Drupal hosting providers. In addition, there are built in commands to use Pantheon's `terminus` and Platform.sh's `platform` CLI utilities by default, allowing for easier local development closely coupled with your hosting provider.
 
 Up next, we're going to take a look at some of the default stacks available out of the box with Docksal.  [Continue on >](/intro-docksal/stacks)

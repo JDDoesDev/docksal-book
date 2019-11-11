@@ -1,6 +1,6 @@
 ---
 title: "Docksal Stacks"
-weight: 2
+weight: 3
 ---
 
 ## Stacks in Docksal
