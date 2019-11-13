@@ -33,6 +33,7 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
       * We're going to use `fin` to spin up a boilerplate project and see what happens.
   * Spinning up a Drupal Site
       * We're going to spin up a basic Drupal 8 site using the Docksal Drupal 8 boilerplate and take a look at some of the things that Docksal needs to run within a Drupal codebase.
+* GOING FURTHER
   * Customization
       * How to alter settings and configuration to make our system work how we want it to work.
   * Advanced Customization
@@ -43,7 +44,6 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
       * Let's take an existing project that we've been working on and add Docksal to it to mimic our hosting environment.
   * Addons, Addons, Addons
       * Using addons to make your life easier.  We'll explore some of the available addons, what they do, and how to install them.
-* GOING FURTHER
   * Docksal: It's Not Just for Local Anymore
       * Let's explore some other uses for Docksal that aren't your local machine. Docksal can be used for CI builds and sandbox environments.
 * Q & A AND TROUBLESHOOTING

@@ -100,7 +100,7 @@ In `docksal.yml` we're going to define our `cli` service.
     ```yaml
     cli:
       image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
-      build: ${PROJECT_ROOT}/.docksal/services/cli
+      build: services/cli
     ```
 
     This names the image based on our project's name and then tells Docksal where to find the file we're going to build the new image from.

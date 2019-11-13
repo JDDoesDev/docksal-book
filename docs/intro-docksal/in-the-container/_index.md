@@ -28,7 +28,7 @@ As briefly mentioned in a previous section, Docksal ships with many developer to
 With some configuration, many services can be added to your application, including:
 
 * Apache Solr
-* Cloud9 IDE
+* Code Server
 * Elastic Search
 * Memcached
 * Redis
