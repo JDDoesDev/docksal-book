@@ -1,6 +1,6 @@
 ---
 title: "Adding Docksal to an Existing Project"
-weight: 3
+weight: 4
 ---
 
 ## It's Okay if You Didn't Start a Project with Docksal
