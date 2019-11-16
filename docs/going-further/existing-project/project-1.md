@@ -1,6 +1,6 @@
 ---
 title: "Adding Docksal to a Basic Project"
-weight: 4
+weight: 2
 ---
 
 ## Scenario
