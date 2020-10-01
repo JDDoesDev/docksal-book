@@ -13,7 +13,7 @@ As briefly mentioned in a previous section, Docksal ships with many developer to
 * Composer - a tool for managing PHP packages
 * Drupal Console - a Drupal CLI tool
 * Drush - a Drupal CLI tool
-* Acquia Drush Commands - custom Drush commands to work with Acquia
+* Acquia CLI - tool for using Acquia Cloud API v2 on the command line
 * ngrok - a utility for sharing local applications over the internet
 * PHP Code Sniffer - a PHP linting and error checking tool
 * PHPMyAdmin - a web-based GUI for interacting with databases
@@ -22,6 +22,7 @@ As briefly mentioned in a previous section, Docksal ships with many developer to
 * SASS and Compass - tools for compiling SASS
 * WP-CLI - a CLI tool for interacting with WordPress sites
 * Xdebug - a PHP debugging utility
+* Xhprof - tool to profile your PHP application
 
 ### Others are available as services
 

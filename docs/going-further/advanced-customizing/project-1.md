@@ -9,7 +9,7 @@ weight: 8
 For this project, we're going to use the following scenario:
 
 {{% notice info %}}
-Your client has a site on Acquia using PHP 7.3. You know that the default Docksal Acquia stack uses PHP 7.2, but you want to match environments. How do you do this?
+Your client has a site on Acquia using PHP 7.4. You know that the default Docksal Acquia stack uses PHP 7.3, but you want to match environments. How do you do this?
 {{% /notice %}}
 
 ### Choose the right stack
@@ -28,15 +28,15 @@ In `composer.json`, in the `extra.installer-paths` section, you need to change a
 
 ### Configure the PHP version
 
-The PHP version is defined in the `cli` service. The default image for the `cli` service is `docksal/cli:2.6-php7.2`. We can change this in `docksal.env` by adding the following variable: `CLI_IMAGE=docksal/cli:2.9-php7.3`. This is the latest version of this image tagged with PHP 7.3.
+The PHP version is defined in the `cli` service. The default image for the `cli` service is `docksal/cli:2.11-php7.3`. We can change this in `docksal.env` by adding the following variable: `CLI_IMAGE=docksal/cli:2.11-php7.4`. This is the latest version of this image tagged with PHP 7.4.
 
-Inside `~/.docksal/stacks/services.yml` the `cli` section runs logic for the image version: `image: ${CLI_IMAGE:-docksal/cli:2.6-php7.2}` which checks to see if the `CLI_IMAGE` environment variable is set, and if not, uses the default.
+Inside `~/.docksal/stacks/services.yml` the `cli` section runs logic for the image version: `image: ${CLI_IMAGE:-docksal/cli:2.11-php7.3}` which checks to see if the `CLI_IMAGE` environment variable is set, and if not, uses the default.
 
 ### Update your project
 
 The easiest way to do this is to run `fin up`, however if you have not initialized your project yet, you should run `fin init`. For this exercise we're going to run `fin init`.
 
-Run `fin init` and watch as the images that aren't on your system are pulled down and your project spins up using PHP 7.3.x.
+Run `fin init` and watch as the images that aren't on your system are pulled down and your project spins up using PHP 7.4.x.
 
 {{% notice tip %}}
 The completed code for Project 1 can be found at https://github.com/JDDoesDev/docksal-training-projects/tree/adv-cust-project-1

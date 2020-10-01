@@ -25,13 +25,13 @@ The default stack contains these project services:
 
     The default `cli` service runs `supervisord`. This is a client/server system that Docksal uses to control processes on the service. For `cli` these processes are the daemons `php-fpm`, which we use for running our PHP scripts, `crond`, which executes scheduled commands, and `sshd`, which is used to allow SSH connections.
 
-    It uses the `docksal/cli:2.6-php7.2` image out of the box which contains PHP 7.2, Composer, Drush, Drupal Console, WP-CLI, Terminus, and Platform along with many more. It also has Nodejs v10.15.0, Ruby 2.6.0, Python 2.7.0, and msmtp. These inclusions are useful for having some of the most commonly used languages and compilers/interpreters used in web application development.
+    It uses the `docksal/cli:2.11-php7.3` image out of the box which contains PHP 7.3, Composer, Drush, Drupal Console, WP-CLI, Terminus, and Platform along with many more. It also has Nodejs v12.18.1, Ruby 2.7.1, Python 3.8.3, and msmtp. These inclusions are useful for having some of the most commonly used languages and compilers/interpreters used in web application development.
 
 * `db`
 
     The default `db` service runs the `mysqld` daemon. This allows connections to the database layer and separates the database layer from the CLI layer to simulate a real hosting environment.
 
-    It uses the `docksal/mysql:5.6-1.4` image out of the box with MySQL 5.6.
+    It uses the `docksal/mysql:5.6-1.5` image out of the box with MySQL 5.6.
 
 * `web`
 

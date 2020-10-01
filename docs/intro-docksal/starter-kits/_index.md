@@ -13,6 +13,7 @@ As noted in the ["What's Docksal?"](/docs/intro-docksal/whats-docksal/) section,
 
 They are:
 
+* Drupal 9
 * Drupal 8
 * Drupal 7
 * Wordpress

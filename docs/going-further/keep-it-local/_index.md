@@ -120,12 +120,12 @@ This file is not read by Docksal, does not keep any sensitive data, and can be k
 You could do the same with an `example.docksal-local.yml` file as well.
 
 ``` yaml
-## To test the codebase against PHP 7.3, copy this file to docksal-local.yml and
+## To test the codebase against PHP 7.4, copy this file to docksal-local.yml and
 ## restart your project.
 version: "2.1"
 services:
   cli:
-    image: "docksal/cli:2.9-php7.3"
+    image: "docksal/cli:2.11-php7.4"
 ```
 
 ### Summary
