@@ -11,8 +11,8 @@ Services are often part of a larger application whereas containers usually stand
 
 Many of the functions of services are beyond the scope of this section of the training, however a few things that should be noted are:
 
-* Docker services are defined individually as part of a larger application.
+* Docker services are defined individually as part of a larger application
 * Docker services are structured in Dockerfiles, however they are managed by `docker-compose`, a utility that interacts with an entire application rather than a single container
-* Applications that use services are defined in a `*.yml` file, often named `docker-compose.yml` with several services defined along with settings and information to help everything run together.
+* Applications that use services are defined in a `*.yml` file, often named `docker-compose.yml` with several services defined along with settings and information to help everything run together
 
 The [Docker docs](https://docs.docker.com) have many examples of using services and it's something that we will cover more in the Configuring Docksal section later.

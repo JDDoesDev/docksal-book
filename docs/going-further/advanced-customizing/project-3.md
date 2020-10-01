@@ -13,7 +13,7 @@ A client wants a decoupled solution to be hosted on two servers. The Drupal side
 
 Now, we can build off our last step by continuing to grow our `docksal.yml` and `docksal.env` files. We're also going to add in some custom commands to make our life a little bit easier in the long run.
 
-Let's start off by listing what we're going to needing for this project:
+Let's start off by listing what we're going to need for this project:
 
 * A Drupal installation on an Acquia Stack
 * Multiple domains

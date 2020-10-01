@@ -22,7 +22,7 @@ This training is designed based on the [Docksal Docs](https://docs.docksal.io) w
   * Docksal System and Default Services
       * We're going to explore some of the services that come with Docksal and where they're used.
   * Boilerplates and Starterkits
-      * It's not just for Drupal! Let's explore a few of the available boilerplate projects that are in the Docksal Github Repo
+      * It's not just for Drupal! Let's explore a few of the available boilerplate projects that are in the Docksal Github Repo.
   * What's in the Container?
       * We're going to explore some of the tools that are included with Docksal straight out of the box. Many should feel very familiar.
 * GETTING STARTED

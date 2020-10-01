@@ -140,7 +140,7 @@ Testing a bind mount
 And now I'm changed from the host
 ```
 
-Outstanding! We now have the ability to change files in the container from our host which means that we can develop on our host and use the power of containers to build and host our code in a repeatable manner.
+Outstanding! We now have the ability to change files in the container from our host, which means that we can develop on our host and use the power of containers to build and host our code in a repeatable manner.
 
 There are a lot more feature of bind mounts and other mounts that are beyond the scope of this training. For further reading please check out the [Docker Docks](https://docs.docker.com/storage/bind-mounts/).
 
