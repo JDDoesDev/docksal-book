@@ -21,6 +21,7 @@ Over time it's grown into a powerful, robust, and highly configurable developmen
 
 Docksal is currently used by several agencies and development shops as a tool to speed up development, test code rapidly, and deploy with ease. It's become one of the top developer tools, including out of the box support for:
 
+* Drupal 9
 * Drupal 8
 * Drupal 7
 * Wordpress

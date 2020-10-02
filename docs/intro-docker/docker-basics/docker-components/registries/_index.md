@@ -11,4 +11,4 @@ A registry is where images are stored. The most common of these is [Docker Hub](
 **NOTE:** The trainers do not condone the hunting of whales for the making of whale sausage. Whales are beautiful, endangered creatures.
 {{% /notice %}}
 
-It is possible to add custom registries or even private registries to your Docker setup, but that is outside the scope of this training. Please consult the [Docker docs](http://docs.docker.com)
+It is possible to add custom registries or even private registries to your Docker setup, but that is outside the scope of this training. Please consult the [Docker docs](http://docs.docker.com).

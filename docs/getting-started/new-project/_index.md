@@ -32,28 +32,35 @@ We're going to begin by entering our terminal and going to a project folder. For
     ``` bash
     1. What would you like to install?
       PHP based
-        1.  Drupal 8
-        2.  Drupal 8 (Composer Version)
-        3.  Drupal 7
-        4.  Wordpress
-        5.  Magento
-        6.  Laravel
-        7.  Symfony Skeleton
-        8.  Symfony WebApp
-        9.  Grav CMS
-        10. Backdrop CMS
+        1.  Drupal 9 (Composer Version)
+        2.  Drupal 9 (BLT Version)
+        3.  Drupal 9
+        4.  Drupal 8
+        5.  Drupal 8 (Composer Version)
+        6.  Drupal 8 (BLT Version)
+        7.  Drupal 7
+        8.  Wordpress
+        9.  Magento
+        10.  Laravel
+        11.  Symfony Skeleton
+        12.  Symfony WebApp
+        13. Grav CMS
+        14. Backdrop CMS
 
       Go based
-        11.  Hugo
+        15.  Hugo
 
       JS based
-        12.  Gatsby JS
-        13.  Angular
+        16.  Gatsby JS
+        17.  Angular
 
       HTML
-        14.  Static HTML site
+        18.  Static HTML site
 
-    Enter your choice (1-14): 14
+      Custom
+        0. Custom git repository
+
+    Enter your choice (0-18): 18
     ```
 
 4. Next, we'll be able to verify our setup with the following prompt:

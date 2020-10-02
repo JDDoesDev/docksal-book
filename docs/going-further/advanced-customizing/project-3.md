@@ -13,7 +13,7 @@ A client wants a decoupled solution to be hosted on two servers. The Drupal side
 
 Now, we can build off our last step by continuing to grow our `docksal.yml` and `docksal.env` files. We're also going to add in some custom commands to make our life a little bit easier in the long run.
 
-Let's start off by listing what we're going to needing for this project:
+Let's start off by listing what we're going to need for this project:
 
 * A Drupal installation on an Acquia Stack
 * Multiple domains
@@ -37,7 +37,7 @@ To do this we're going to use both a custom Dockerfile and edit our `docksal.yml
 2. We're going to extend the default Docksal CLI image so start the file with:
 
     ```dockerfile
-    FROM docksal/cli:2.9-php7.3
+    FROM docksal/cli:2.11-php7.3
     ```
 
 3. We want to run all of our installations as our default container user "docker" so we need to make sure to switch users in the Dockerfile.
@@ -94,7 +94,7 @@ To do this we're going to use both a custom Dockerfile and edit our `docksal.yml
 The final Dockerfile should look like this:
 
 ``` dockerfile
-FROM docksal/cli:2.9-php7.3
+FROM docksal/cli:2.11-php7.3
 
 USER docker
 

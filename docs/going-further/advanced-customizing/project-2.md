@@ -21,7 +21,7 @@ We're going to create a custom Dockerfile that extends the default `cli` image w
 2. Extend the current image by starting the file with
 
     ``` dockerfile
-    FROM docksal/cli:2.9-php7.3
+    FROM docksal/cli:2.11-php7.3
     ```
 
     This tells Docksal that we're still going to use this image, but we're doing something more with it.
@@ -66,7 +66,7 @@ We're going to create a custom Dockerfile that extends the default `cli` image w
       Our completed Dockerfile should look like this
 
       ```dockerfile
-      FROM docksal/cli:2.9-php7.3
+      FROM docksal/cli:2.11-php7.3
 
       USER docker
 

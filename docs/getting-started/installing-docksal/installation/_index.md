@@ -29,7 +29,7 @@ This runs Docker inside a Virtual Machine with VirtualBox.
 ### macOS with Docker for Mac
 
 1. Install Docker for Mac (a prerequisite)
-2. Start Docker for Mac and wait until the animation stops and/or the Docker menu says "Docker is running
+2. Start Docker for Mac and wait until the animation stops and/or the Docker menu says "Docker is running"
 3. Install Docksal by opening a terminal and running
 
     ``` bash

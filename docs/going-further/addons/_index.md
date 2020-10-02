@@ -17,6 +17,7 @@ We touched on creating your own commands in [Advanced Customizations: Project 3]
 |   blt | Acquia BLT tool launcher (requires [BLT installation](https://blog.docksal.io/docksal-and-acquia-blt-1552540a3b9f)) | Drupal |
 |   codeclimate | [CodeClimate](https://codeclimate.com/) code quality tool | |
 |   mailhog | [Mailhog](https://github.com/mailhog/MailHog) e-mail capture service for current project |  |
+|   mkcert | [mkcert](https://github.com/FiloSottile/mkcert) addon for Docksal |  |
 |   phpcs | PHP Code Sniffer and Code Beautifier | |
 |   phpunit | Creates a phpunit.xml file and runs PHPUnit tests | Drupal |
 |   pma | [PhpMyAdmin](https://www.phpmyadmin.net/) database management tool | MySQL |
@@ -24,7 +25,9 @@ We touched on creating your own commands in [Advanced Customizations: Project 3]
 |   sequelpro | Launches [SequelPro](https://www.sequelpro.com) with the connection information for current project. | macOS |
 |   simpletest | Runs SimpleTest tests in Drupal 7 and 8 | Drupal |
 |   solr | [Apache Solr](http://lucene.apache.org/solr/) search service for current project |  |
+|   tableplus | Launches [TablePlus](https://www.tableplus.com) with the connection information for current project. | macOS |
 |   uli | Generate one time login url for current site | Drupal |
+|   wkhtmltopdf | Installs wkhtmltopdf 0.12.5 with QT compiled in. |  |
 
 All of these are available to install and use to make development a little quicker and easier. Let's install an addon.
 

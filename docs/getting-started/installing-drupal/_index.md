@@ -27,7 +27,7 @@ Here we're pulling the repo and checking out the Step 1 branch, where we're goin
 **NOTE:** There is a possibility that the default settings may not provision enough memory or CPU power in your virtual machine for some steps of the next section. If your build fails, then consult the [Troubleshooting](#troubleshooting) portion of this section.
 {{% /notice %}}
 
-Now that we've cloned the repo we're going to run a command we haven't talked about yet: `fin init`
+Now that we've cloned the repo, we're going to run a command we haven't talked about yet: `fin init`
 
 Before we run that, a little info on what `fin init` is and what it does. `fin init` is a custom command that is not part of the core Docksal package. Instead, it is customized on a project by project basis, and sometimes is not required. The purpose of `fin init` is usually to completely start or restart a project from a clean state.
 
@@ -57,7 +57,7 @@ Volume docksal_ssh_agent is external, skipping
 
 The `WARNING:` lines let us know that the project does not already exist, but it also points out that we're attempting to remove the current containers as part of the `fin init` process.
 
-If all runs according to plan you will see Composer do some things, Docksal do some things, and Drupal do some things, eventually ending with
+If all runs according to plan you will see Composer do some things, Docksal do some things, and Drupal do some things, eventually ending with:
 
 ``` bash
 [notice] Starting Drupal installation. This takes a while.
@@ -156,10 +156,10 @@ Check https://getcomposer.org/doc/articles/troubleshooting.md#proc-open-fork-fai
 
 That means you'll need to add some resources to your virtual machine.
 
-1. Run `fin system stop` to shut down the VM.
-2. Open your VirtualBox application.
-3. Highlight the `docksal` machine, making sure it is in a `Powered off` state.
-4. Select "Settings".
+1. Run `fin system stop` to shut down the VM
+2. Open your VirtualBox application
+3. Highlight the `docksal` machine, making sure it is in a `Powered off` state
+4. Select "Settings"
 5. Under "System > Motherboard" increase the memory to 4096 MB
 6. Under "System > Processor" increase the CPUs to 4
 7. Go back to your terminal and run `fin system start`

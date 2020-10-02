@@ -17,7 +17,7 @@ The prerequisites for installing Docksal are pretty slim, but important.
 
 * ### Linux
   * By default, Apache listens on `0.0.0.0:80` and `0.0.0.0:443`. This will prevent Docksal reverse proxy from running properly. You can resolve it an any of the following ways:
-      * Reconfigure Apache to listen on different host (e.g., 1`27.0.0.1:80` and `127.0.0.1:443`)
+      * Reconfigure Apache to listen on different hosts (e.g., 1`27.0.0.1:80` and `127.0.0.1:443`)
       * Reconfigure Apache to listen on different ports (e.g., `8080` and `4433`)
       * Stop and disable Apache
 
